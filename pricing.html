@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Friday AI Pricing Plans - Individual, Professional, and Enterprise plans available">
+    <title>Pricing - Friday AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .pricing-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-note {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid var(--border-color);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pricing-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .pricing-price {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .pricing-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            padding: 0;
+        }
+
+        .pricing-features li {
+            padding: 1rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-cta.primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .pricing-cta.primary:hover {
+            box-shadow: var(--shadow-xl);
+        }
+
+        .pricing-cta.secondary {
+            background: var(--bg-secondary);
+            color: var(--text-dark);
+            border: 2px solid var(--border-color);
+        }
+
+        .pricing-cta.secondary:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .pricing-cta.disabled {
+            background: var(--text-light);
+            color: white;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .pricing-cta.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .trial-badge {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .recommended {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .frequently-asked {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .frequently-asked h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary-color);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3rem auto;
+            max-width: 900px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .compare-table th {
+            background: var(--bg-secondary);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .compare-table th:first-child {
+            text-align: left;
+        }
+
+        .compare-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .compare-table td:not(:first-child) {
+            color: var(--text-secondary);
+        }
+
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-column {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .comparison-column h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .comparison-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-column li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .comparison-column li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .comparison-column li.feature-included {
+            color: var(--text-dark);
+        }
+
+        .comparison-column li.feature-not-included {
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .comparison-column li.feature-upgrade {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary-color);
+        }
+
+        .comparison-table td:first-child,
+        .comparison-table th:first-child {
+            text-align: left;
+            background: var(--bg-secondary);
+        }
+
+        .comparison-table td:first-child,
+        .comparison-table th:first-child {
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3rem auto;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .compare-table th {
+            background: var(--bg-secondary);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .compare-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .compare-table td:not(:first-child) {
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .price-savings {
+            text-align: center;
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pro-feature-highlight {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+        }
+
+        .pro-feature-highlight h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .pro-feature-highlight p {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+        }
+
+        .pro-feature-highlight ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pro-feature-highlight li {
+            padding: 0.75rem 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pro-feature-highlight li::before {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem 0.5rem;
+            }
+
+            .pro-feature-highlight {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Friday AI</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="documentation.html" class="nav-link">Documentation</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="https://github.com/friday-ai/friday" target="_blank" class="nav-link github">GitHub</a>
+            </div>
+            <button class="nav-cta" onclick="showPricing()">Get Started</button>
+        </div>
+    </nav>
+
+    <div class="pricing-container">
+        <div class="pricing-header">
+            <h2>💰 Simple, Transparent Pricing</h2>
+            <p>Choose the perfect plan for your needs. All plans include a free 14-day trial.</p>
+        </div>
+
+        <div class="price-savings">
+            <p>Save $39/month with Professional Plan - Use code <strong>FRIDAY20</strong> for 20% off</p>
+        </div>
+
+        <div class="pro-feature-highlight">
+            <h3>🏆 Why Professional Plan is Recommended</h3>
+            <p>Most development teams and serious developers prefer the Professional Plan for its balance of features and value.</p>
+            <ul>
+                <li>Voice system included</li>
+                <li>Multi-language support (22 languages)</li>
+                <li>Team collaboration features</li>
+                <li>API access included</li>
+                <li>Priority support</li>
+                <li>Custom integrations</li>
+                <li>Advanced analytics</li>
+                <li>24/7 support</li>
+            </ul>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Individual Plan -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>👤 Individual</h3>
+                    <div class="pricing-price">$49<span class="pricing-period">/month</span></div>
+                    <div class="trial-badge">14-Day Free Trial</div>
+                    <p class="pricing-description">Perfect for developers who need powerful AI assistance</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>Access to all 77 tools</li>
+                    <li>Real AI intelligence</li>
+                    <li>Voice commands</li>
+                    <li>22 language support</li>
+                    <li>Standard support</li>
+                    <li>Daily optimization</li>
+                    <li>Weekly updates</li>
+                    <li>Email support</li>
+                    <li>Basic analytics</li>
+                    <li>Code examples</li>
+                    <li>Community access</li>
+                    <li>Community forum</li>
+                </ul>
+                <button class="pricing-cta primary" onclick="selectPlan('individual')">Start Free Trial</button>
+            </div>
+
+            <!-- Professional Plan -->
+            <div class="pricing-card featured">
+                <div class="pricing-badge">MOST POPULAR</div>
+                <div class="pricing-header">
+                    <h3>👨‍💼 Professional</h3>
+                    <div class="pricing-price">$149<span class="pricing-period">/month</span></div>
+                    <div class="recommended">RECOMMENDED</div>
+                    <p class="pricing-description">For teams and serious developers</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>✅ Everything in Individual</li>
+                    <li>✅ Team collaboration</li>
+                    <li>✅ Priority support</li>
+                    <li>✅ API access</li>
+                    <li>✅ Custom integrations</li>
+                    <li>✅ Advanced analytics</li>
+                    <li>✅ Priority AI requests</li>
+                    <li>✅ 24/7 phone support</li>
+                    <li>✅ Custom training</li>
+                    <li>✅ Unlimited API calls</li>
+                    <li>✅ Advanced features</li>
+                    <li>✅ Priority development</li>
+                </ul>
+                <button class="pricing-cta primary" onclick="selectPlan('professional')">Start Free Trial</button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>🏢 Enterprise</h3>
+                    <div class="trial-badge">14-Day Free Trial</div>
+                    <div class="pricing-price">Custom</div>
+                    <p class="pricing-description">For large organizations with specific needs</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>✅ Everything in Professional</li>
+                    <li>✅ Unlimited users</li>
+                    <li>✅ Dedicated support</li>
+                    <li>✅ Custom development</li>
+                    <li>✅ On-premise deployment</li>
+                    <li>✅ SLA guarantees</li>
+                    <li>✅ Custom AI training</li>
+                    <li>✅ Legal compliance</li>
+                    <li>✅ Account manager</li>
+                    <li>✅ Audit logs</li>
+                    <li>✅ Custom integrations</li>
+                    <li>✅ Priority development</li>
+                </ul>
+                <button class="pricing-cta secondary" onclick="selectPlan('enterprise')">Contact Sales</button>
+            </div>
+        </div>
+
+        <div class="pricing-note">
+            <p><strong>All plans include:</strong> 14-day free trial, no credit card required, cancel anytime, all features included, 24/7 access, professional support, priority updates, community access</p>
+        </div>
+
+        <!-- Comparison Table -->
+        <h2 style="text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 2rem; color: var(--text-dark);">Compare All Plans</h2>
+
+        <div class="comparison-header">
+            <div class="comparison-column">
+                <h4>Individual</h4>
+                <ul>
+                    <li class="feature-included">77 tools</li>
+                    <li class="feature-included">Real AI</li>
+                    <li class="feature-not-included">Team collaboration</li>
+                    <li class="feature-not-included">API access</li>
+                    <li class="feature-not-included">Priority support</li>
+                    <li class="feature-not-included">Custom integrations</li>
+                    <li class="feature-not-included">Advanced analytics</li>
+                    <li class="feature-included">Voice commands</li>
+                    <li class="feature-included">22 languages</li>
+                    <li class="feature-included">Team access</li>
+                </ul>
+            </div>
+            <div class="comparison-column">
+                <h4>Professional</h4>
+                <ul>
+                    <li class="feature-included">77 tools</li>
+                    <li class="feature-included">Real AI</li>
+                    <li class="feature-included">Team collaboration</li>
+                    <li class="feature-included">API access</li>
+                    <li class="feature-upgrade">Priority support</li>
+                    <li class="feature-upgrade">Custom integrations</li>
+                    <li class="feature-upgrade">Advanced analytics</li>
+                    <li class="feature-included">Voice commands</li>
+                    <li class="feature-included">22 languages</li>
+                    <li class="feature-included">Team access</li>
+                </ul>
+            </div>
+            <div class="comparison-column">
+                <h4>Enterprise</h4>
+                <ul>
+                    <li class="feature-included">77 tools</li>
+                    <li class="feature-included">Real AI</li>
+                    <li class="feature-included">Team collaboration</li>
+                    <li class="feature-upgrade">API access</li>
+                    <li class="feature-upgrade">Priority support</li>
+                    <li class="feature-upgrade">Custom integrations</li>
+                    <li class="feature-upgrade">Advanced analytics</li>
+                    <li class="feature-included">Voice commands</li>
+                    <li class="feature-included">22 languages</li>
+                    <li class="feature-upgrade">Unlimited users</li>
+                </ul>
+            </div>
+        </div>
+
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Individual</th>
+                    <th>Professional</th>
+                    <th>Enterprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Price</td>
+                    <td>$49/month</td>
+                    <td>$149/month</td>
+                    <td>Custom</td>
+                </tr>
+                <tr>
+                    <td>14-Day Trial</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>77 Integrated Tools</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Real AI Intelligence</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Voice Commands</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>22 Languages</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Team Collaboration</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>API Access</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Custom Integrations</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Priority Support</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>24/7 Phone Support</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Custom Training</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>On-Premise Deployment</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>SLA Guarantees</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Dedicated Support</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Account Manager</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Audit Logs</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Unlimited Users</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Custom Implementation</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Enterprise License</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- FAQ -->
+        <div class="frequently-asked">
+            <h2>❓ Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>How long is the free trial?</span>
+                        <span class="faq-toggle">−</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All plans come with a 14-day free trial. No credit card required for the trial.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>Can I cancel my subscription anytime?</span>
+                        <span class="faq-toggle">−</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can cancel your subscription at any time. There are no contracts or long-term commitments.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span>What payment methods do you accept?</span>
+                        <span class="faq-toggle">−</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express) and PayPal.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <span class="faq-toggle">−</span>
+                    <div class="faq-question">
+                        <span>Do you offer refunds?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer refunds within 30 days if you're not satisfied with Friday AI.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <span class="faq-toggle">−</span>
+                    <div class="faq-question">
+                        <span>Can I upgrade or downgrade my plan?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade or downgrade your plan at any time. Pro-rated refunds will be applied for any changes.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <span class="faq-toggle">−</span>
+                    <div class="faq-question">
+                        <span>Is Friday AI suitable for enterprise use?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our Enterprise plan includes all features you need for large organizations with specific requirements.</p>
+                    </div>
+                </div>
+                <div class="faq-item active">
+                    <span class="faq-toggle">−</span>
+                    <div class="faq-question">
+                        <span>Can I use Friday AI for commercial projects?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Individual and Professional plans include commercial use rights. Enterprise plans have specific enterprise licensing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer" style="margin-top: 4rem;">
+            <div class="container">
+                <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                    <div class="footer-section">
+                        <h3 style="color: white;">Friday AI</h3>
+                        <p style="color: rgba(255, 255, 255, 0.8);">Your complete AI development assistant with 77 integrated tools.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4 style="color: white;">Product</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html" style="color: rgba(255, 255, 255, 0.8);">Features</a></li>
+                            <li><a href="documentation.html" style="color: rgba(255, 255, 255, 0.8);">Documentation</a></li>
+                            <li><a href="contact.html" style="color: rgba(255, 255, 255, 0.8);">Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4 style="color: white;">Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">About</a></li>
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Careers</a></li>
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4 style="color: white;">Legal</h4>
+                        <ul class="footer-links">
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Privacy Policy</a></li>
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Terms of Service</a></li>
+                            <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0.5rem 0;">&copy; 2026 Friday AI. All rights reserved.</p>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0.5rem 0;">Made with ❤️ by the Friday AI team</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
