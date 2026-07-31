@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friday — Manual Trade</title>
+<link rel="icon" href="/static/assets/friday-mark.svg">
+<style>
+  :root{
+    --bg:#070A12;--surface:#0C1120;--surface2:#111827;--text:#E8ECF8;
+    --muted:#8B95B5;--mint:#55E2C0;--danger:#EF4444;--indigo:#7C8CFF;
+    --green:#22C581;--border:#1F2937;--up:#064e35;--down:#7f1d1d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+  header .logo{font-weight:700;letter-spacing:.5px}header .back{opacity:.6;font-size:12px}
+  .layout{display:grid;grid-template-columns:320px 1fr;display:-ms-flex;grid-template-columns:320px 1fr}
+  .sidebar{padding:14px;overflow-y:auto}
+  .main{padding:14px;overflow:auto}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px}
+  .panel h3{margin:0 0 10px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+  .row{display:flex;gap:8px;align-items:center}
+  .pill{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+  .pill.green{background:rgba(34,197,129,.12);color:var(--green)}
+  .pill.red{background:rgba(239,68,68,.12);color:var(--danger)}
+  .pill.grey{background:rgba(139,149,181,.18);color:var(--muted)}
+  input,select{background:var(--surface2);border:1px solid var(--border);color:var(--text);font:inherit;border-radius:8px;padding:8px 10px;font-size:13px;width:100%}
+  input:focus{outline:1px solid var(--mint);border-color:var(--mint)}
+  .price{font-variant-numeric:tabular-nums;font-size:19px;font-weight:700}
+  .tick-down{color:var(--danger)} .tick-up{color:var(--green)}
+  button{border:none;border-radius:10px;font-weight:600;cursor:pointer;font-size:13px;padding:11px 14px;width:100%}
+  btn.buy{background:var(--green);color:#052e18}
+  button.sell{background:var(--danger);color:#fff}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  td,th{padding:5px 8px;text-align:right;font-variant-numeric:tabular-nums}
+  th{color:var(--muted);font-weight:600;text-align:right}
+  .stat{opacity:.85;font-size:12px}
+  .stat b{color:var(--text)}
+  .kbd-display{background:var(--surface2);border:1px dashed var(--border);border-radius:10px;padding:12px;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+  .toast{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);padding:10px 16px;border-radius:999px;font-size:12px;opacity:0;transition:.2s}
+  .toast.show{opacity:1}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+  a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">FRIDAY</div>
+  <a class="back" href="/">&#8592; Dashboard</a>
+</header>
+
+<div class="layout">
+  <!-- Left: deepchart + order ticket -->
+  <div class="sidebar">
+    <!-- Price ladder -->
+    <div class="panel">
+      <h3>PRICE • <span id="symbol-label">EURUSD.m</span></h3>
+      <div id="price" class="price" style="height:26px"></div>
+      <div class="row" style="margin-top:8px;gap:6px">
+        <input id="symbol" list="symbols" value="EURUSDm" style="flex:1">
+        <datalist id="symbols">
+          <option>EURUSDm</option><option>GBPUSDm</option><option>USDJPYm</option>
+          <option>XAUUSDm</option><option>BTCUSDm</option><option>AUDJPYm</option><option>EURJPYm</option>
+        </datalist>
+      </div>
+      <div class="stat" style="margin-top:8px">Spread: <b id="spread">—</b> &nbsp; Digits: <b id="digits">—</b></div>
+    </div>
+
+      <!-- Order ticket -->
+      <div class="panel">
+        <h3>ORDER TICKET <button id="btnPropose" style="float:right;font-size:11px;padding:3px 8px">Friday's view</button></h3>
+        <div class="row" style="margin-bottom:10px;gap:6px">
+          <div style="flex:1"><input id="lot" type="number" min="0.01" step="0.01" value="0.01"></div>
+          <div style="flex:1"><input id="sl" type="number" step="0.0001" placeholder="Stop Loss (price)"></div>
+          <div style="flex:1"><input id="tp" type="number" step="0.0001" placeholder="Take Profit (price)"></div>
+        </div>
+        <div class="kbd-display" id="review">Lot 0.01 • SL — • TP —</div>
+        <div class="stat" id="rationale" style="margin-top:8px;min-height:16px">Ask Friday for a proposal.</div>
+      </div>
+
+    <button id="btnBuy" class="buy">🟢 BUY</button>
+    <button id="btnSell" class="sell">🔴 SELL</button>
+  </div>
+
+  <!-- Right: account risk + open positions -->
+  <div class="main">
+    <div class="panel">
+      <h3>ACCOUNT <span id="acct-pill" class="pill grey">—</span></h3>
+      <table>
+        <tr><th>Balance</th><td id="balance">—</td></tr>
+        <tr><th>Equity</th><td id="equity">—</td></tr>
+        <tr><th>Free Margin</th><td id="freemargin">—</td></tr>
+        <tr><th>Margin</th><td id="margin">—</td></tr>
+        <tr><th>Locked P&L</th><td id="profit">—</td></tr>
+      </table>
+      <div class="stat" style="margin-top:10px">Daily cap: <b id="cap">$37.50</b> &nbsp; Today: <b id="today pnl">0</b></div>
+    </div>
+
+    <div class="panel">
+      <h3>OPEN POSITIONS (<span id="npos">0</span>)</h3>
+      <table id="positions">
+        <tr style="display:none"><td colspan="2" class="stat">none</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const $ = (id) => document.getElementById(id);
+let symbol = "EURUSDm", tick = {bid:0,ask:0,digits:5}, acct = {};
+
+async function fetchJSON(url){const r = await fetch(url,{cache:'no-store'}); if(!r.ok){const t=await r.text(); let msg=t; try{const j=JSON.parse(t); msg=j.error||j.message||t}catch(e){} throw new Error(msg+' ('+r.status+')');} return r.json();}
+
+async function refreshTick(){
+  try {
+    const t = await fetchJSON('/api/trade/tick/'+encodeURIComponent(symbol));
+    tick = {bid:t.bid||0, ask:t.ask||0, digits:t.digits||5, last:t.last, time:t.time};
+    const mid = (tick.bid+tick.ask)/2;
+    $('price').innerHTML = (mid).toFixed(tick.digits>=3?((tick.ask>=100)?2:5):5) + (tick.bid&&tick.ask?' <span class="tick-down">▼'+(mid-tick.bid).toFixed(tick.digits):'');
+    $('price').className='price '+(tick.bid>=mid?'tick-down':'tick-up');
+    $('spread').textContent = ((tick.ask-tick.bid).toFixed(tick.digits>=3?2:5));
+    $('digits').textContent = tick.digits;
+    review();
+  } catch(e){ $('price').textContent='—'; toast('tick: '+e.message); }
+}
+
+async function refreshAccount(){
+  try {
+    acct = await fetchJSON('/api/trade/account');
+    $('balance').textContent = (acct.balance??'—').toFixed?.(2)??acct.balance;
+    $('equity').textContent = (acct.equity??'—').toFixed?.(2)??acct.equity;
+    const fm = (acct.equity??0)-(acct.margin??0);
+    $('freemargin').textContent = typeof fm==='number'?fm.toFixed(2):fm;
+    $('margin').textContent = (acct.margin??'—').toFixed?.(2)??acct.margin;
+    $('profit').textContent = (acct.profit??'—').toFixed?.(2)??acct.profit;
+    $('symbol-label').textContent = symbol;
+    $('acct-pill').textContent = acct.login?'#'+acct.login:'live';
+    $('acct-pill').className='pill '+(acct.profit>=0?'green':'red');
+  } catch(e){ $('acct-pill').textContent='MT5'; $('acct-pill').className='pill red'; toast('account: '+e.message); }
+}
+
+async function refreshPositions(){
+  try {
+    const p = await fetchJSON('/api/trade/positions');
+    const pos = p.positions||[];
+    $('npos').textContent = pos.length;
+    const tbl = $('positions'); tbl.innerHTML='';
+    if(!pos.length){ tbl.innerHTML='<tr><td colspan="2" class="stat">no open positions</td></tr>'; return; }
+    pos.forEach(r=>{const tr=document.createElement('tr');
+      tr.innerHTML='<td style="text-align:left">'+r.symbol+' <span class="pill '+ (r.type==='buy'?'green':'red')+'">'+(r.type||'')+'</span></td><td>'+(r.profit?.toFixed(2)+' / lot '+(r.volume))+'</td>'; tbl.appendChild(tr);});
+  } catch(e){ $('npos').textContent='!'; }
+}
+
+function review(){
+  const lot = parseFloat($('lot').value)||0;
+  const sl = parseFloat($('sl').value)||0;
+  const tp = parseFloat($('tp').value)||0;
+  $('review').textContent = 'Lot '+(lot.toFixed(2))+' • SL '+(sl?sl.toFixed(tick.digits>=3?2:5):'—')+' • TP '+(tp?tp.toFixed(tick.digits>=3?2:5):'—');
+}
+
+async function place(side){
+  const lot = parseFloat($('lot').value);
+  const sl = parseFloat($('sl').value)||0;
+  const tp = parseFloat($('tp').value)||0;
+  if(!lot||lot<=0){toast('enter a lot size');return;}
+  if(!tick.bid||!tick.ask){toast('waiting for price…');return;}
+  if(!confirm('Place '+side.toUpperCase()+' '+symbol+' '+lot.toFixed(2)+' lots ?'+'\nSL='+sl+'\nTP='+tp)){return;}
+  $('btnBuy').disabled=$('btnSell').disabled=true;
+  try {
+    const res = await (await fetch('/api/trade/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol,type:side,volume:lot,sl,tp})})).json().catch(r=>r.text());
+    toast(side.toUpperCase()+': '+JSON.stringify(res));
+    if(res && !res.error) refreshPositions();
+  } catch(e){ toast('order failed: '+e.message); }
+  finally { $('btnBuy').disabled=$('btnSell').disabled=false; }
+}
+
+function toast(msg){$('toast').textContent=msg;$('toast').className='toast show';setTimeout(()=>{$('toast').className='toast';},2200);}
+
+$('symbol').addEventListener('change',()=>{symbol=$('symbol').value;refreshTick();});
+$('lot').addEventListener('input',review);
+$('btnBuy').addEventListener('click',()=>place('buy'));
+$('btnSell').addEventListener('click',()=>place('sell'));
+
+async function requestPropose(){
+  $('btnPropose').disabled=true; $('btnPropose').textContent='Analyzing…';
+  try {
+    const res = await fetch('/api/trade/propose',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({symbol, risk_pct:1.0})});
+    const j = await res.json().catch(r=>r.text());
+    if(res.ok && j.side){
+      $('lot').value = j.lot; $('sl').value = (j.sl||'').toString(); $('tp').value = (j.tp||'').toString();
+      $('review').textContent = 'PROPOSAL: '+j.side.toUpperCase()+' '+symbol+' '+j.lot+' lots @ '+num(j.price)+'  SL '+num(j.sl)+' TP '+num(j.tp)+' (1:2 R)';
+      $('rationale').innerHTML = '<span class="pill grey">'+j.rationale+'</span>';
+    } else {
+      $('rationale').innerHTML = '<span class="pill red">'+(j.error||j.rationale||'no proposal')+'</span>';
+      $('review').textContent = 'Lot 0.01 • SL — • TP —';
+    }
+  } catch(e){ $('rationale').innerHTML='<span class="pill red">propose failed: '+e.message+'</span>'; }
+  finally { $('btnPropose').disabled=false; $('btnPropose').textContent="Friday's view"; review(); }
+}
+$('btnPropose').addEventListener('click',requestPropose);
+
+refreshAccount(); refreshTick(); refreshPositions();
+setInterval(refreshTick,1500); setInterval(refreshAccount,4000); setInterval(refreshPositions,5000);
+</script>
+</body>
+</html>

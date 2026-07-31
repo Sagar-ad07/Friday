@@ -283,10 +283,11 @@ func RegisterAll() {
 	GlobalRegistry.Register(&SemanticRecallTool{})
 	GlobalRegistry.Register(&FTS5RecallTool{})
 	GlobalRegistry.Register(&GenerateStatementTool{})
-	GlobalRegistry.Register(&TradeLedgerTool{})
-	GlobalRegistry.Register(&ApproveStrategyTool{})
+ 	GlobalRegistry.Register(&TradeLedgerTool{})
+ 	GlobalRegistry.Register(&ApproveStrategyTool{})
+ 	GlobalRegistry.Register(&RustDeskContractTool{})
 
-	// 0-Capital Earning Tools
+ 	// 0-Capital Earning Tools
 	GlobalRegistry.Register(&AirdropFarmingTool{})
 	GlobalRegistry.Register(&NodeRunnerTool{})
 	GlobalRegistry.Register(&BandwidthTool{})

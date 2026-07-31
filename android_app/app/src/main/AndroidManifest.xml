@@ -50,11 +50,11 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config" />
         </service>
-    <!-- Kill Switch Activity (confirmation dialog) -->
+        <!-- Kill Switch Activity (confirmation dialog) -->
         <activity
             android:name=".KillSwitchActivity"
             android:exported="false"
-            android:theme="@style/Theme.Friday.KillSwitch" />
+            android:theme="@style/Theme.Friday" />
 
         <!-- Kill Switch Broadcast Receiver -->
         <receiver

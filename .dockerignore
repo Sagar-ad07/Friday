@@ -1,5 +1,4 @@
 .git
-node_modules
 *.exe
 *.dll
 *.so
@@ -11,3 +10,18 @@ data/
 __pycache__
 *.log
 .DS_Store
+android_app/
+interface/
+webui/
+devkit/
+devkit-integration/
+trading/
+upgrades/
+*.md
+!README.md
+!DEPLOY.md
+*.rar
+*.zip
+friday.rar
+go.rar
+go-source.zip

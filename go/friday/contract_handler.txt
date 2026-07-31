@@ -1,0 +1,22 @@
+
+// ExecuteRustDeskContractTrade handles the confirmation and execution of RustDesk clicks for contract trades
+func (s *Server) ExecuteRustDeskContractTrade() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var req struct {
+			Confirm string `json:"confirm" binding:"required"`
+		}
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "confirm field required: 'EXECUTE TRADE'"})
+			return
+		}
+
+		rustDeskContractTool := &RustDeskContractTool{}
+		result, err := rustDeskContractTool.ExecuteConfirmed(req.Confirm)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to execute trade", "detail": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, result)
+	}
+}

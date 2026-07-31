@@ -3,7 +3,7 @@
   dockerfilePath = "Dockerfile"
 
 [deploy]
-  startCommand = "./friday -config .env"
+  startCommand = "./friday"
   healthcheckPath = "/trading/status"
   healthcheckTimeout = 5000
   restartPolicy = "on-failure"

@@ -1,0 +1,12 @@
+{
+  "build": {
+    "dockerfilePath": "Dockerfile",
+    "buildContext": "."
+  },
+  "deploy": {
+    "restartPolicy": "on-failure",
+    "restartAttempts": 5,
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 5
+  }
+}

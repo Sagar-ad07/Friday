@@ -69,7 +69,7 @@ class FridayViewModel : ViewModel() {
     private val _autonomyStatus: MutableState<String> = mutableStateOf("idle")
     var autonomyStatus: String
         get() = _autonomyStatus.value
-        private set
+        private set(value) { _autonomyStatus.value = value }
 
     fun toggleAutonomy(on: Boolean) {
         if (!::api.isInitialized) return
