@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Friday — Control Center</title>
+  <link rel="stylesheet" href="/static/cc.css?v=1">
+</head>
+<body>
+  <div id="app">
+    <!-- ── Floating Chat ── -->
+    <div id="chat-float" class="chat-collapsed" role="dialog" aria-label="Friday Chat">
+      <div class="chat-header" id="chat-header">
+        <div class="chat-avatar">
+          <img src="/static/assets/friday-mark.svg" width="28" height="28" alt="F" />
+        </div>
+        <div class="chat-title">
+          <span class="chat-name">Friday</span>
+          <span class="chat-status" id="chat-status"><span class="pulse"></span>Online</span>
+        </div>
+        <div class="chat-actions">
+          <button class="icon-btn" id="chat-toggle" title="Expand chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/></svg></button>
+        </div>
+      </div>
+      <div class="chat-body" id="chat-body">
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-typing" id="chat-typing" hidden>
+          <span class="typing-dots"><span></span><span></span><span></span></span>
+        </div>
+      </div>
+      <div class="chat-input-wrap">
+        <textarea id="chat-input" placeholder="Message Friday…" rows="1" spellcheck="false"></textarea>
+        <div class="chat-input-actions">
+          <button class="icon-btn" id="chat-mic" title="Voice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg></button>
+          <button class="icon-btn primary" id="chat-send" title="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Main Layout ── -->
+    <div id="main-layout">
+      <!-- Sidebar Navigation -->
+      <aside id="sidebar" class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-brand">
+          <div class="brand-mark" aria-hidden="true">
+            <img src="/static/assets/friday-mark.svg" width="28" height="28" alt="F" />
+          </div>
+          <span class="brand-text">Friday</span>
+        </div>
+        <nav class="nav-sections">
+          <section class="nav-section">
+            <h3 class="nav-section-title">Overview</h3>
+            <a href="#dashboard" class="nav-item active" data-view="dashboard" aria-current="page">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="#trading" class="nav-item" data-view="trading">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Trading</span>
+              <span class="nav-badge live" id="trading-badge">$0.00</span>
+            </a>
+          </section>
+          <section class="nav-section">
+            <h3 class="nav-section-title">Intelligence</h3>
+            <a href="#workers" class="nav-item" data-view="workers">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>Workers</span>
+              <span class="nav-count" id="workers-active">9/9</span>
+            </a>
+            <a href="#bots" class="nav-item" data-view="bots">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              <span>Bots</span>
+              <span class="nav-count" id="bots-count">0</span>
+            </a>
+            <a href="#mt5" class="nav-item" data-view="mt5">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <span>MT5 Bridge</span>
+              <span class="nav-status" id="mt5-status"><span class="dot"></span>Disconnected</span>
+            </a>
+          </section>
+          <section class="nav-section">
+            <h3 class="nav-section-title">Devices</h3>
+            <a href="#devices" class="nav-item" data-view="devices">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span>Android</span>
+              <span class="nav-status" id="android-status"><span class="dot offline"></span>Offline</span>
+            </a>
+            <a href="#devices" class="nav-item" data-view="devices">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 17a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8.5"/></svg>
+              <span>iOS</span>
+              <span class="nav-status" id="ios-status"><span class="dot offline"></span>Offline</span>
+            </a>
+          </section>
+          <section class="nav-section">
+            <h3 class="nav-section-title">System</h3>
+            <a href="#logs" class="nav-item" data-view="logs">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>
+              <span>Logs</span>
+            </a>
+            <a href="#settings" class="nav-item" data-view="settings">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>
+              <span>Settings</span>
+            </a>
+          </section>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="system-health">
+            <span class="health-indicator" id="health-indicator"><span class="dot ok"></span>Healthy</span>
+            <button class="icon-btn" id="kill-switch" title="EMERGENCY KILL — Stops ALL activity instantly" aria-label="Emergency kill switch">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main id="main-content" class="main-content" role="main">
+        <!-- Dashboard View -->
+        <section id="view-dashboard" class="view active" data-view="dashboard" aria-labelledby="dash-title">
+          <header class="view-header">
+            <h1 id="dash-title">Dashboard</h1>
+            <div class="header-actions">
+              <span class="live-indicator" id="live-indicator"><span class="pulse-ring"></span>LIVE</span>
+            </div>
+          </header>
+          <div class="grid grid-4" id="dash-cards">
+            <article class="card stat-card primary">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="card-content">
+                <p class="card-label">Active Workers</p>
+                <p class="card-value" id="dash-workers">9/9</p>
+              </div>
+            </article>
+            <article class="card stat-card success">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+              <div class="card-content">
+                <p class="card-label">Total Earnings</p>
+                <p class="card-value" id="dash-earnings">$0.00</p>
+              </div>
+            </article>
+            <article class="card stat-card warning">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></div>
+              <div class="card-content">
+                <p class="card-label">Active Bots</p>
+                <p class="card-value" id="dash-bots">0</p>
+              </div>
+            </article>
+            <article class="card stat-card info">
+              <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="card-content">
+                <p class="card-label">Uptime</p>
+                <p class="card-value" id="dash-uptime">0m</p>
+              </div>
+            </article>
+          </div>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <section class="card panel">
+              <header class="panel-header"><h2>Worker Activity</h2><span class="badge live">Live</span></header>
+              <div class="worker-feed" id="worker-feed"></div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Recent Actions</h2><span class="badge live">Live</span></header>
+              <div class="action-log" id="action-log"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Trading View -->
+        <section id="view-trading" class="view" data-view="trading" aria-labelledby="trade-title" hidden>
+          <header class="view-header">
+            <h1 id="trade-title">Trading Center</h1>
+            <div class="header-actions">
+              <select id="trade-account" class="select" aria-label="Trading account"></select>
+              <button class="btn primary" id="btn-trade-start" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Start</button>
+              <button class="btn danger" id="btn-trade-stop" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="12" height="16" rx="2"/></svg> Stop</button>
+              <button class="btn danger" id="btn-emergency-flat" title="Emergency: Close ALL positions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> FLAT ALL</button>
+            </div>
+          </header>
+          <div class="grid grid-4" id="trade-summary">
+            <article class="card stat-card primary"><p class="card-label">Balance</p><p class="card-value" id="trade-balance">$0.00</p></article>
+            <article class="card stat-card success"><p class="card-label">Equity</p><p class="card-value" id="trade-equity">$0.00</p></article>
+            <article class="card stat-card warning"><p class="card-label">Free Margin</p><p class="card-value" id="trade-margin">$0.00</p></article>
+            <article class="card stat-card danger"><p class="card-label">Daily P&L</p><p class="card-value" id="trade-daily-pnl">$0.00</p></article>
+          </div>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <section class="card panel">
+              <header class="panel-header"><h2>Open Positions</h2></header>
+              <div class="table-wrap"><table class="data-table" id="positions-table"><thead><tr><th>Symbol</th><th>Type</th><th>Volume</th><th>Open</th><th>Current</th><th>SL</th><th>TP</th><th>P&L</th></tr></thead><tbody id="positions-body"></tbody></table></div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Pending Orders</h2></header>
+              <div class="table-wrap"><table class="data-table" id="orders-table"><thead><tr><th>Ticket</th><th>Symbol</th><th>Type</th><th>Volume</th><th>Price</th><th>SL</th><th>TP</th></tr></thead><tbody id="orders-body"></tbody></table></div>
+            </section>
+          </div>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <section class="card panel">
+              <header class="panel-header"><h2>Market Watch</h2></header>
+              <div class="table-wrap"><table class="data-table" id="market-table"><thead><tr><th>Symbol</th><th>Bid</th><th>Ask</th><th>Spread</th><th>Change</th></tr></thead><tbody id="market-body"></tbody></table></div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Account Info</h2></header>
+              <div class="account-grid" id="account-info"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Workers View -->
+        <section id="view-workers" class="view" data-view="workers" aria-labelledby="workers-title" hidden>
+          <header class="view-header">
+            <h1 id="workers-title">Worker Intelligence</h1>
+            <div class="header-actions">
+              <span class="live-indicator" id="workers-live"><span class="pulse-ring"></span>MONITORING</span>
+            </div>
+          </header>
+          <div class="grid grid-3" id="workers-grid"></div>
+          <section class="card panel" style="margin-top: 16px;">
+            <header class="panel-header"><h2>Worker Communication Log</h2></header>
+            <div class="worker-comm-log" id="worker-comm"></div>
+          </section>
+        </section>
+
+        <!-- Bots View -->
+        <section id="view-bots" class="view" data-view="bots" aria-labelledby="bots-title" hidden>
+          <header class="view-header">
+            <h1 id="bots-title">Bot Manager</h1>
+            <div class="header-actions">
+              <button class="btn primary" id="btn-create-bot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Create Bot</button>
+            </div>
+          </header>
+          <div class="bots-grid" id="bots-grid"></div>
+          <dialog id="bot-dialog" class="modal-dialog">
+            <form method="dialog" class="modal-content">
+              <header class="modal-header"><h2 id="bot-dialog-title">Create Bot</h2><button class="icon-btn" value="cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></header>
+              <div class="modal-body">
+                <div class="form-group"><label>Bot Name</label><input type="text" id="bot-name" class="input" placeholder="My Price Monitor" required></div>
+                <div class="form-group"><label>Type</label><select id="bot-type" class="select"><option value="price_monitor">Price Monitor</option><option value="news_monitor">News Monitor</option><option value="scheduled_task">Scheduled Task</option><option value="signal_generator">Signal Generator</option></select></div>
+                <div class="form-group"><label>Symbol(s)</label><input type="text" id="bot-symbols" class="input" placeholder="EURUSD, GBPUSD (comma separated)"></div>
+                <div class="form-group"><label>Interval (seconds)</label><input type="number" id="bot-interval" class="input" value="30" min="10" max="3600"></div>
+                <div class="form-group"><label>Config (JSON)</label><textarea id="bot-config" class="input" rows="4" placeholder='{"threshold": 0.0005, "action": "alert"}'></textarea></div>
+              </div>
+              <footer class="modal-footer"><button class="btn secondary" value="cancel">Cancel</button><button class="btn primary" id="bot-submit">Create Bot</button></footer>
+            </form>
+          </dialog>
+        </section>
+
+        <!-- MT5 Bridge View -->
+        <section id="view-mt5" class="view" data-view="mt5" aria-labelledby="mt5-title" hidden>
+          <header class="view-header">
+            <h1 id="mt5-title">MT5 Bridge</h1>
+            <div class="header-actions">
+              <span class="connection-status" id="mt5-conn-status"><span class="dot disconnected"></span>Disconnected</span>
+              <button class="btn primary" id="btn-mt5-connect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M21 1l-22 22"/></svg> Connect</button>
+              <button class="btn danger" id="btn-mt5-disconnect" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Disconnect</button>
+            </div>
+          </header>
+          <div class="grid grid-3" id="mt5-cards">
+            <article class="card stat-card"><p class="card-label">Connection</p><p class="card-value" id="mt5-conn-state">Disconnected</p></article>
+            <article class="card stat-card"><p class="card-label">Latency</p><p class="card-value" id="mt5-latency">— ms</p></article>
+            <article class="card stat-card"><p class="card-label">Account</p><p class="card-value" id="mt5-account">—</p></article>
+          </div>
+          <div class="grid grid-2" style="margin-top: 16px;">
+            <section class="card panel">
+              <header class="panel-header"><h2>MT5 Terminal Status</h2></header>
+              <div class="terminal-status" id="mt5-terminal-status"></div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Bridge Logs</h2></header>
+              <div class="log-stream" id="mt5-logs"></div>
+            </section>
+          </div>
+        </section>
+
+        </section>
+
+        <!-- Devices View -->
+        <section id="view-devices" class="view" data-view="devices" aria-labelledby="devices-title" hidden>
+          <header class="view-header">
+            <h1 id="devices-title">Devices</h1>
+            <div class="header-actions">
+              <span class="live-indicator" id="devices-live"><span class="pulse-ring"></span>LIVE</span>
+            </div>
+          </header>
+          <div class="grid grid-2" id="devices-grid">
+            <article class="device-card" data-platform="android">
+              <header class="device-header">
+                <div class="device-icon android">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <div class="device-info">
+                  <h2>Android</h2>
+                  <span class="device-status" id="android-card-status"><span class="dot offline"></span>Offline</span>
+                </div>
+              </header>
+              <div class="device-metrics">
+                <div class="metric"><span class="metric-label">App Version</span><span class="metric-value" id="android-version">—</span></div>
+                <div class="metric"><span class="metric-label">Last Seen</span><span class="metric-value" id="android-last-seen">—</span></div>
+                <div class="metric"><span class="metric-label">Battery</span><span class="metric-value" id="android-battery">—</span></div>
+                <div class="metric"><span class="metric-label">Wake Word</span><span class="metric-value" id="android-wake">—</span></div>
+              </div>
+              <div class="device-capabilities">
+                <h3>Capabilities</h3>
+                <ul class="capability-list" id="android-caps">
+                  <li data-cap="voice"><span class="cap-dot"></span>Voice Assistant</li>
+                  <li data-cap="screen"><span class="cap-dot"></span>Screen Capture</li>
+                  <li data-cap="sms"><span class="cap-dot"></span>SMS</li>
+                  <li data-cap="notifications"><span class="cap-dot"></span>Notifications</li>
+                  <li data-cap="apps"><span class="cap-dot"></span>App Control</li>
+                  <li data-cap="contacts"><span class="cap-dot"></span>Contacts</li>
+                  <li data-cap="location"><span class="cap-dot"></span>Location</li>
+                  <li data-cap="media"><span class="cap-dot"></span>Media Control</li>
+                </ul>
+              </div>
+              <div class="device-actions">
+                <button class="btn secondary" id="btn-android-connect">Connect</button>
+                <button class="btn primary" id="btn-android-test">Test Voice</button>
+              </div>
+            </article>
+
+            <article class="device-card" data-platform="ios">
+              <header class="device-header">
+                <div class="device-icon ios">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 17a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8.5"/></svg>
+                </div>
+                <div class="device-info">
+                  <h2>iOS</h2>
+                  <span class="device-status" id="ios-card-status"><span class="dot offline"></span>Offline</span>
+                </div>
+              </header>
+              <div class="device-metrics">
+                <div class="metric"><span class="metric-label">App Version</span><span class="metric-value" id="ios-version">—</span></div>
+                <div class="metric"><span class="metric-label">Last Seen</span><span class="metric-value" id="ios-last-seen">—</span></div>
+                <div class="metric"><span class="metric-label">Battery</span><span class="metric-value" id="ios-battery">—</span></div>
+                <div class="metric"><span class="metric-label">Wake Word</span><span class="metric-value" id="ios-wake">—</span></div>
+              </div>
+              <div class="device-capabilities">
+                <h3>Capabilities</h3>
+                <ul class="capability-list" id="ios-caps">
+                  <li data-cap="voice"><span class="cap-dot"></span>Voice Assistant</li>
+                  <li data-cap="screen"><span class="cap-dot"></span>Screen Capture</li>
+                  <li data-cap="sms"><span class="cap-dot"></span>iMessage/SMS</li>
+                  <li data-cap="notifications"><span class="cap-dot"></span>Notifications</li>
+                  <li data-cap="apps"><span class="cap-dot"></span>App Control</li>
+                  <li data-cap="contacts"><span class="cap-dot"></span>Contacts</li>
+                  <li data-cap="location"><span class="cap-dot"></span>Location</li>
+                  <li data-cap="media"><span class="cap-dot"></span>Media Control</li>
+                </ul>
+              </div>
+              <div class="device-actions">
+                <button class="btn secondary" id="btn-ios-connect">Connect</button>
+                <button class="btn primary" id="btn-ios-test">Test Voice</button>
+              </div>
+            </article>
+          </div>
+          <section class="card panel" style="margin-top: 16px;">
+            <header class="panel-header"><h2>Device Logs</h2></header>
+            <div class="log-stream" id="device-logs"></div>
+          </section>
+        </section>
+
+        <!-- Logs View -->
+          <header class="view-header">
+            <h1 id="logs-title">System Logs</h1>
+            <div class="header-actions">
+              <select id="log-level" class="select"><option value="debug">Debug</option><option value="info" selected>Info</option><option value="warn">Warn</option><option value="error">Error</option></select>
+              <select id="log-source" class="select"><option value="all">All Sources</option><option value="orchestrator">Orchestrator</option><option value="workers">Workers</option><option value="trading">Trading</option><option value="mt5">MT5 Bridge</option><option value="voice">Voice</option></select>
+              <button class="btn secondary" id="btn-clear-logs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Clear</button>
+            </div>
+          </header>
+          <section class="card panel log-panel">
+            <div class="log-stream" id="log-stream"></div>
+          </section>
+        </section>
+
+        <!-- Settings View -->
+        <section id="view-settings" class="view" data-view="settings" aria-labelledby="settings-title" hidden>
+          <header class="view-header"><h1 id="settings-title">Settings</h1></header>
+          <div class="settings-grid">
+            <section class="card panel">
+              <header class="panel-header"><h2>Voice</h2></header>
+              <div class="settings-form">
+                <div class="form-row"><label>TTS Engine</label><select id="set-tts-engine" class="select"><option value="edge">Edge TTS (Free)</option><option value="sarvam">Sarvam (Paid)</option></select></div>
+                <div class="form-row"><label>Voice</label><select id="set-tts-voice" class="select"><option value="en-IN-ShaanNeural">Shaan (Indian English)</option><option value="en-IN-NeerjaNeural">Neerja (Indian English)</option><option value="en-US-AriaNeural">Aria (US English)</option></select></div>
+                <div class="form-row"><label>STT Provider</label><select id="set-stt-provider" class="select"><option value="sarvam">Sarvam</option><option value="groq">Groq Whisper</option><option value="local">Local Whisper</option></select></div>
+              </div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Trading</h2></header>
+              <div class="settings-form">
+                <div class="form-row"><label>Default Symbol</label><input type="text" id="set-default-symbol" class="input" placeholder="EURUSD"></div>
+                <div class="form-row"><label>Risk % per Trade</label><input type="number" id="set-risk-pct" class="input" step="0.1" min="0.1" max="5" value="1"></div>
+                <div class="form-row"><label>Max Daily Loss $</label><input type="number" id="set-max-daily" class="input" step="10" min="10" value="100"></div>
+              </div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>System</h2></header>
+              <div class="settings-form">
+                <div class="form-row"><label>Auto-start Trading</label><label class="toggle"><input type="checkbox" id="set-auto-trade"><span class="toggle-slider"></span></label></div>
+                <div class="form-row"><label>Screen Watch</label><label class="toggle"><input type="checkbox" id="set-screen-watch"><span class="toggle-slider"></span></div>
+                <div class="form-row"><label>Proactive Actions</label><label class="toggle"><input type="checkbox" id="set-proactive"><span class="toggle-slider"></span></div>
+              </div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>API Keys</h2></header>
+              <div class="settings-form">
+                <div class="form-row"><label>DeepSeek API</label><input type="password" id="set-deepseek" class="input" placeholder="sk-..."></div>
+                <div class="form-row"><label>OpenRouter API</label><input type="password" id="set-openrouter" class="input" placeholder="sk-..."></div>
+                <div class="form-row"><label>Gemini API</label><input type="password" id="set-gemini" class="input" placeholder="..."></div>
+                <div class="form-row"><label>Sarvam API</label><input type="password" id="set-sarvam" class="input" placeholder="..."></div>
+                <div class="form-row"><label>Groq API</label><input type="password" id="set-groq" class="input" placeholder="gsk_..."></div>
+              </div>
+            </section>
+            <section class="card panel">
+              <header class="panel-header"><h2>Danger Zone</h2></header>
+              <div class="danger-zone">
+                <div class="danger-item"><div><h3>Reset All Data</h3><p>Clears memory, logs, episodes, earnings history</p></div><button class="btn danger" id="btn-reset-data">Reset All</button></div>
+                <div class="danger-item"><div><h3>Factory Reset</h3><p>Removes all settings, keys, bots — fresh install</p></div><button class="btn danger" id="btn-factory-reset">Factory Reset</button></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Confirmation Modal (for dangerous actions) -->
+    <dialog id="confirm-modal" class="modal-dialog">
+      <form method="dialog" class="modal-content confirm-modal">
+        <header class="modal-header"><h2 id="confirm-title">Confirm Action</h2></header>
+        <div class="modal-body"><p id="confirm-message"></p><div class="confirm-details" id="confirm-details"></div></div>
+        <footer class="modal-footer"><button class="btn secondary" value="cancel">Cancel</button><button class="btn danger" id="confirm-ok" value="default">Confirm</button></footer>
+      </form>
+    </dialog>
+
+    <!-- Kill Switch Confirmation -->
+    <dialog id="kill-modal" class="modal-dialog kill-modal">
+      <form method="dialog" class="modal-content kill-confirm">
+        <div class="kill-icon"><svg viewBox="0 0 64 64" fill="none" stroke="#ef4444" stroke-width="3"><circle cx="32" cy="32" r="28"/><line x1="16" y1="16" x2="48" y2="48" stroke-width="4"/><line x1="48" y1="16" x2="16" y2="48" stroke-width="4"/></svg></div>
+        <h2>EMERGENCY KILL SWITCH</h2>
+        <p>This will IMMEDIATELY stop ALL activity:</p>
+        <ul>
+          <li>Trading bot — emergency flat all positions</li>
+          <li>All workers — immediate halt</li>
+          <li>MT5 bridge — disconnect</li>
+          <li>All bots — emergency stop</li>
+          <li>Voice/Vision — disabled</li>
+        </ul>
+        <p class="kill-warning">Cannot be undone. Requires manual restart.</p>
+        <div class="kill-auth">
+          <label>Type "KILL" to confirm:</label>
+          <input type="text" id="kill-input" placeholder="KILL" autocomplete="off">
+        </div>
+        <footer class="modal-footer"><button class="btn secondary" value="cancel">Abort</button><button class="btn kill-btn" id="kill-confirm" value="default" disabled>EXECUTE KILL</button></footer>
+      </form>
+    </dialog>
+  </div>
+
+  <script type="module" src="/static/cc.js?v=1"></script>
+</body>
+</html>

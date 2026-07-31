@@ -1,0 +1,19 @@
+{
+  "daily_pnl": 38.340000000000146,
+  "daily_profit_cap": 37.5,
+  "guardian_strikes": 0,
+  "highest_day_pnl": 0,
+  "in_trade": false,
+  "last_error": "Daily profit cap hit: +$38.34 (cap $37.50) - no new trades until tomorrow",
+  "last_trade_result": "",
+  "losses": 0,
+  "peak_balance": 5000,
+  "profitable_days": 0,
+  "running": false,
+  "ticket": 0,
+  "timestamp": "2026-07-31T14:29:46Z",
+  "total_pnl": 0,
+  "tracked_tickets": [],
+  "trades_today": 0,
+  "wins": 0
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Friday logo">
+  <defs>
+    <linearGradient id="fridayGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9AA6FF"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </linearGradient>
+    <radialGradient id="fridayGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#7C8CFF" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#7C8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fridayNode" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#EAF7FF"/>
+      <stop offset="0.5" stop-color="#8CF0DA"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#070A12"/>
+  <circle cx="128" cy="120" r="104" fill="url(#fridayGlow)"/>
+  <!-- Bold geometric F: vertical stem, top arm, mid arm -->
+  <g stroke="url(#fridayGrad)" stroke-width="21" stroke-linecap="round" fill="none">
+    <path d="M92 202 L92 78 Q92 64 106 64 L172 64"/>
+    <line x1="92" y1="133" x2="148" y2="133"/>
+  </g>
+  <!-- Living core node terminating the mid-bar (the 'alive' pulse) -->
+  <circle cx="150" cy="133" r="17" fill="#070A12"/>
+  <circle cx="150" cy="133" r="17" fill="none" stroke="url(#fridayGrad)" stroke-width="7"/>
+  <circle cx="150" cy="133" r="6.5" fill="url(#fridayNode)"/>
+</svg>

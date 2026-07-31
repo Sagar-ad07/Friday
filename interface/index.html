@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friday</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sb-head">
+        <img src="/static/assets/friday-mark.svg" width="20" height="20" alt="F">
+        <div>
+          <div class="sb-name">Friday</div>
+          <div class="sb-status" id="sb-status">online</div>
+        </div>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">quick</div>
+        <button class="sb-cmd" data-cmd="What can you do?">capabilities</button>
+        <button class="sb-cmd" data-cmd="Summarize my last messages">summarize</button>
+        <button class="sb-cmd" data-cmd="Show me my bots">my bots</button>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">status</div>
+        <div class="sb-stat"><span>Workers</span><span id="st-workers">9/9</span></div>
+        <div class="sb-stat"><span>Bots</span><span id="st-bots">0</span></div>
+        <div class="sb-stat"><span>Uptime</span><span id="st-uptime">0m</span></div>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">features</div>
+        <div class="sb-feat"><span class="fd on"></span>Chat</div>
+        <div class="sb-feat"><span class="fd" id="fd-voice"></span>Voice</div>
+        <div class="sb-feat"><span class="fd" id="fd-vision"></span>Vision</div>
+        <div class="sb-feat"><span class="fd" id="fd-trade"></span>Trading</div>
+      </div>
+
+      <div class="sb-spacer"></div>
+
+      <div class="sb-group">
+        <button class="sb-cmd secondary" id="btn-cc">ctrl center</button>
+        <button class="sb-cmd secondary" id="btn-new">new chat</button>
+      </div>
+    </aside>
+
+    <main id="main">
+      <div id="activity-feed"></div>
+
+      <div id="chat-area">
+        <div id="messages">
+          <div class="welcome">
+            <img src="/static/assets/friday-mark.svg" width="28" height="28" alt="">
+            <div class="w-title">Friday</div>
+            <div class="w-sub">online — 9 workers ready</div>
+            <div class="w-hint">type a message or use a quick command</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="worker-bar" class="hidden">
+        <span class="wb-dot"></span>
+        <span class="wb-name" id="wb-name"></span>
+        <span class="wb-action" id="wb-action"></span>
+      </div>
+
+      <div id="input-bar">
+        <input id="input" type="text" placeholder="Message Friday..." autocomplete="off">
+        <button id="mic-btn" title="Voice"></button>
+        <button id="send-btn"></button>
+        <button id="cancel-btn" style="display:none">cancel</button>
+      </div>
+    </main>
+
+    <div id="cc" class="hidden">
+      <div class="cc-top">
+        <span>Control Center</span>
+        <button id="cc-close">&times;</button>
+      </div>
+      <div class="cc-tabs" id="cc-tabs">
+        <button class="ct active" data-v="dash">Dash</button>
+        <button class="ct" data-v="workers">Workers</button>
+        <button class="ct" data-v="bots">Bots</button>
+        <button class="ct" data-v="trading">Trade</button>
+        <button class="ct" data-v="mt5">MT5</button>
+        <button class="ct" data-v="devices">Devices</button>
+        <button class="ct" data-v="logs">Logs</button>
+        <button class="ct" data-v="companion">Us</button>
+        <button class="ct" data-v="healer">Heal</button>
+        <button class="ct" data-v="settings">Settings</button>
+      </div>
+      <div class="cc-body">
+        <!-- Dashboard -->
+        <div id="cc-dash" class="cc-v">
+          <div class="cs-lbl">overview</div>
+          <div class="cc-grid-2">
+            <div class="cc-card"><div class="cc-card-lbl">Workers</div><div class="cc-card-val" id="cc-d-workers">9/9</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">Bots</div><div class="cc-card-val" id="cc-d-bots">0</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">Earnings</div><div class="cc-card-val" id="cc-d-earn">$0</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">Uptime</div><div class="cc-card-val" id="cc-d-up">0m</div></div>
+          </div>
+          <div class="cs-lbl" style="margin-top:8px">activity</div>
+          <div id="cc-activity" class="cc-log"></div>
+          <div class="cs-lbl" style="margin-top:8px">actions</div>
+          <button class="cc-btn" id="cc-d-refresh">Refresh</button>
+          <button class="cc-btn danger" id="cc-d-kill">KILL SWITCH</button>
+        </div>
+
+        <!-- Workers -->
+        <div id="cc-workers" class="cc-v hidden">
+          <div class="cc-grid" id="cc-w-grid"></div>
+        </div>
+
+        <!-- Bots -->
+        <div id="cc-bots" class="cc-v hidden">
+          <div class="cs-lbl">running bots</div>
+          <div id="cc-bot-list"></div>
+          <div class="cs-lbl" style="margin-top:8px">create bot</div>
+          <select id="cc-bot-type" class="cc-inp">
+            <option value="price_monitor">Price Monitor</option>
+            <option value="news_monitor">News Monitor</option>
+            <option value="scheduled_task">Scheduled Task</option>
+          </select>
+          <input id="cc-bot-name" class="cc-inp" placeholder="name" style="margin-top:4px">
+          <button class="cc-btn" id="cc-bot-create">Create</button>
+        </div>
+
+        <!-- Trading -->
+        <div id="cc-trading" class="cc-v hidden">
+          <div class="cs-lbl">summary</div>
+          <div class="cc-grid-2">
+            <div class="cc-card"><div class="cc-card-lbl">Balance</div><div class="cc-card-val" id="cc-t-bal">$0</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">Equity</div><div class="cc-card-val" id="cc-t-eq">$0</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">P&L</div><div class="cc-card-val" id="cc-t-pnl">$0</div></div>
+            <div class="cc-card"><div class="cc-card-lbl">Positions</div><div class="cc-card-val" id="cc-t-pos">0</div></div>
+          </div>
+          <div class="cs-lbl" style="margin-top:8px">actions</div>
+          <button class="cc-btn" id="cc-t-start">Start Trading</button>
+          <button class="cc-btn danger" id="cc-t-stop">Stop Trading</button>
+        </div>
+
+        <!-- MT5 -->
+        <div id="cc-mt5" class="cc-v hidden">
+          <div class="cs-lbl">connection</div>
+          <div class="cc-mt5-status" id="cc-mt5-stat"><span class="fd error"></span>Disconnected</div>
+          <div class="cs-row"><span>Latency</span><span id="cc-mt5-lat">—</span></div>
+          <div class="cs-row"><span>Account</span><span id="cc-mt5-acct">—</span></div>
+          <div class="cs-lbl" style="margin-top:8px">actions</div>
+          <button class="cc-btn" id="cc-mt5-conn">Connect</button>
+          <button class="cc-btn danger" id="cc-mt5-disc">Disconnect</button>
+          <div class="cs-lbl" style="margin-top:8px">logs</div>
+          <div id="cc-mt5-logs" class="cc-log"></div>
+        </div>
+
+        <!-- Devices -->
+        <div id="cc-devices" class="cc-v hidden">
+          <div class="cs-lbl">android</div>
+          <div class="cc-device">
+            <div class="cc-dev-hdr">
+              <span>Android</span>
+              <span class="cc-dev-stat" id="cc-android-stat"><span class="fd"></span>Offline</span>
+            </div>
+            <div class="cs-row"><span>Version</span><span id="cc-android-ver">—</span></div>
+            <div class="cs-row"><span>Battery</span><span id="cc-android-bat">—</span></div>
+            <div class="cs-row"><span>Last Seen</span><span id="cc-android-last">—</span></div>
+            <div class="cc-dev-actions">
+              <button class="cc-btn" id="cc-android-conn">Connect</button>
+              <button class="cc-btn secondary" id="cc-android-test">Test Voice</button>
+            </div>
+          </div>
+          <div class="cs-lbl" style="margin-top:8px">iphone</div>
+          <div class="cc-device">
+            <div class="cc-dev-hdr">
+              <span>iPhone</span>
+              <span class="cc-dev-stat" id="cc-ios-stat"><span class="fd"></span>Offline</span>
+            </div>
+            <div class="cs-row"><span>Version</span><span id="cc-ios-ver">—</span></div>
+            <div class="cs-row"><span>Battery</span><span id="cc-ios-bat">—</span></div>
+            <div class="cs-row"><span>Last Seen</span><span id="cc-ios-last">—</span></div>
+            <div class="cc-dev-actions">
+              <button class="cc-btn" id="cc-ios-conn">Connect</button>
+              <button class="cc-btn secondary" id="cc-ios-test">Test Voice</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logs -->
+        <div id="cc-logs" class="cc-v hidden">
+          <div class="cs-lbl">system logs</div>
+          <div id="cc-log-list" class="cc-log"></div>
+        </div>
+
+        <!-- Companion -->
+        <div id="cc-companion" class="cc-v hidden">
+          <div class="cs-lbl">us</div>
+          <div class="cc-card" style="text-align:center;padding:16px">
+            <div style="font-size:24px;margin-bottom:6px">&#x2764;&#xFE0F;</div>
+            <div class="cc-card-val" id="cc-comp-since">Together since today</div>
+            <div style="font-size:10px;color:var(--text2);margin-top:4px" id="cc-comp-msg"></div>
+          </div>
+          <div class="cs-lbl" style="margin-top:8px">stats</div>
+          <div class="cs-row"><span>Messages</span><span id="cc-comp-msgs">0</span></div>
+          <div class="cs-row"><span>Crashes survived</span><span id="cc-comp-crashes">0</span></div>
+          <div class="cs-row"><span>Last seen</span><span id="cc-comp-last">now</span></div>
+          <div class="cs-lbl" style="margin-top:8px">preferences</div>
+          <div id="cc-comp-prefs"><div style="color:var(--text3);font-size:10px">None yet</div></div>
+        </div>
+
+        <!-- Healer -->
+        <div id="cc-healer" class="cc-v hidden">
+          <div class="cs-lbl">self-healing status</div>
+          <div class="cc-card">
+            <div class="cc-card-lbl">Health</div>
+            <div class="cc-card-val" id="cc-heal-status">Checking...</div>
+          </div>
+          <div class="cs-lbl" style="margin-top:8px">repairs</div>
+          <div id="cc-heal-log" class="cc-log"></div>
+          <div class="cs-lbl" style="margin-top:8px">actions</div>
+          <button class="cc-btn" id="cc-heal-refresh">Refresh</button>
+          <button class="cc-btn" id="cc-heal-backup">Backup Now</button>
+          <button class="cc-btn" id="cc-heal-rebuild">Rebuild Project</button>
+          <button class="cc-btn" id="cc-heal-clean">Go Clean</button>
+        </div>
+
+        <!-- Settings -->
+        <div id="cc-settings" class="cc-v hidden">
+          <div class="cs-lbl">voice</div>
+          <select id="cc-set-tts" class="cc-inp">
+            <option value="edge">Edge TTS</option>
+            <option value="sarvam">Sarvam</option>
+          </select>
+          <div class="cs-lbl" style="margin-top:8px">system</div>
+          <div class="cc-toggle-row"><span>Auto Trading</span><label class="tg"><input type="checkbox" id="cc-set-trade"><span class="tg-slider"></span></label></div>
+          <div class="cc-toggle-row"><span>Screen Watch</span><label class="tg"><input type="checkbox" id="cc-set-screen"><span class="tg-slider"></span></label></div>
+          <div class="cc-toggle-row"><span>Proactive Mode</span><label class="tg"><input type="checkbox" id="cc-set-proact"><span class="tg-slider"></span></label></div>
+          <div class="cs-lbl" style="margin-top:8px">danger zone</div>
+          <button class="cc-btn danger" id="cc-set-reset">Reset Data</button>
+          <button class="cc-btn danger" id="cc-set-factory">Factory Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+# ── Secrets ──────────────────────────────────────────────────────────
+.env
+*.pem
+*.key
+credentials.json
+service-account.json
+
+# ── Dependencies ─────────────────────────────────────────────────────
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ── Build artifacts ─────────────────────────────────────────────────
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.test
+go/bin/
+go/build/
+
+# ── Data / State ────────────────────────────────────────────────────
+go/data/
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# ── OS files ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / Editor ────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Friday</string>
+    <string name="accessibility_desc">Lets Friday read the screen and perform taps/typing so it can help you hands-free. You can turn this off any time in Settings.</string>
+
+    <!-- Kill Switch Strings -->
+    <string name="kill_switch_title">EMERGENCY KILL SWITCH</string>
+    <string name="kill_switch_message">This will IMMEDIATELY stop ALL activity:</string>
+    <string name="kill_switch_items">
+        <![CDATA[
+• Trading bot — emergency flat all positions
+• All workers — immediate halt
+• MT5 bridge — disconnect
+• All bots — emergency stop
+• Voice/Vision — disabled
+]]>
+    </string>
+    <string name="kill_warning">Cannot be undone. Requires manual restart.</string>
+    <string name="kill_type_here">Type KILL to confirm</string>
+    <string name="kill_confirm">EXECUTE KILL</string>
+    <string name="kill_cancel">Abort</string>
+    <string name="kill_toast_type_kill">Type KILL to confirm</string>
+    <string name="kill_toast_executed">Kill sequence executed</string>
+</resources>

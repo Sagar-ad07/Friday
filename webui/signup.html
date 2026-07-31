@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — Friday Control Center</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="/static/assets/friday-mark.svg">
+  <style>
+    .signup-hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 90px 24px 60px;
+    }
+    .signup-card {
+      background: rgba(18,18,28,.85); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 36px 34px; max-width: 420px; width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .signup-card .logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; color: #00ff88; margin-bottom: 28px; }
+    .signup-card h2 { text-align: center; margin-bottom: 6px; font-size: 1.35rem; }
+    .signup-card .subtitle { text-align: center; color: #888899; margin-bottom: 24px; font-size: .85rem; }
+    .signup-card .form-group { margin-bottom: 18px; }
+    .signup-card .form-group label { font-size: .8rem; color: #888899; margin-bottom: 6px; display: block; }
+    .signup-card input, .signup-card select {
+      width: 100%; padding: 11px 14px; background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.09); border-radius: 8px;
+      color: #e6e6e9; font-size: .85rem; font-family: inherit; outline: none;
+    }
+    .signup-card input:focus, .signup-card select:focus { border-color: #00ff88; box-shadow: 0 0 0 3px rgba(0,255,136,.12); }
+    .signup-card input::placeholder { color: #5a5a73; }
+    .signup-card .btn-primary {
+      width: 100%; padding: 12px; justify-content: center; margin-top: 6px;
+      background: #00ff88; color: #050507; font-weight: 700; border: none; border-radius: 9px; cursor: pointer;
+    }
+    .signup-card .btn-primary:disabled { opacity: .6; cursor: wait; }
+    .signup-card .trial {
+      text-align: center; margin: 20px 0; font-size: .82rem; color: #8282ff;
+      background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.3); padding: 8px 16px; border-radius: 50px;
+    }
+    .signup-card .back { text-align: center; margin-top: 18px; font-size: .82rem; }
+    .signup-card .back a { color: #8282ff; text-decoration: none; font-weight: 600; }
+    .signup-card .back a:hover { text-decoration: underline; }
+    .signup-success { text-align: center; padding: 20px; }
+    .signup-success i { font-size: 2.4rem; color: #00ff88; margin-bottom: 10px; display: block; }
+    .err { color: #ef4444; font-size: .78rem; margin-top: 4px; display: none; }
+  </style>
+</head>
+<body>
+  <section class="signup-hero">
+    <div class="signup-card">
+      <div class="logo"><span>FRIDAY</span></div>
+      <h2>Create Your Account</h2>
+      <p class="subtitle">Free 14-day trial • No credit card required</p>
+
+      <form id="signupForm">
+        <div class="trial"><span>🎁</span> Free 14-Day Trial</div>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="sname" name="name" required placeholder="Your full name">
+          <div class="err" id="nameError">Name is required</div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="semail" name="email" required placeholder="you@email.com">
+          <div class="err" id="emailError">A valid email is required</div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="spass" name="password" required minlength="6" placeholder="Min 6 characters">
+          <div class="err" id="passError">Password must be at least 6 characters</div>
+        </div>
+        <div class="form-group">
+          <label>Plan</label>
+          <select id="splan" name="plan">
+            <option value="trial">Free Trial</option>
+            <option value="individual">Individual — $49/mo</option>
+            <option value="professional">Professional — $149/mo</option>
+            <option value="enterprise">Enterprise — Custom</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary" id="submitBtn">🚀 Start Free Trial</button>
+        <div class="err" id="submitError"></div>
+      </form>
+
+      <div class="signup-success" id="signupSuccess" style="display:none">
+        <span>✅</span>
+        <h3 style="color:#00ff88">Welcome to Friday!</h3>
+        <p>Check the control center for your account status.</p>
+        <div class="back"><a href="/">← Back to Control Center</a></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    async function handleSignup(ev) {
+      ev.preventDefault();
+      var name = document.getElementById('sname').value.trim();
+      var email = document.getElementById('semail').value.trim();
+      var pass = document.getElementById('spass').value;
+      var valid = true;
+      document.getElementById('nameError').style.display='none';
+      document.getElementById('emailError').style.display='none';
+      document.getElementById('passError').style.display='none';
+      document.getElementById('submitError').style.display='none';
+      if (!name) { document.getElementById('nameError').style.display='block'; valid=false; }
+      if (!email || !email.includes('@')) { document.getElementById('emailError').style.display='block'; valid=false; }
+      if (!pass || pass.length < 6) { document.getElementById('passError').style.display='block'; valid=false; }
+      if (!valid) return;
+
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.innerHTML = '⏳ Creating account...';
+
+      try {
+        var r = await fetch('/api/signup', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({name:name, email:email, password:pass, plan:document.getElementById('splan').value})
+        });
+        var d = await r.json();
+        if (r.ok && d.success) {
+          ev.target.style.display = 'none';
+          document.getElementById('signupSuccess').style.display = 'block';
+        } else {
+          throw new Error(d.error || 'signup failed');
+        }
+      } catch (e) {
+        document.getElementById('submitError').textContent = e.message;
+        document.getElementById('submitError').style.display='block';
+      }
+      btn.disabled = false; btn.innerHTML = '🚀 Start Free Trial';
+    }
+    document.getElementById('signupForm').onsubmit = handleSignup;
+  </script>
+</body>
+</html>

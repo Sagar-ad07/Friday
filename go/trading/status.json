@@ -1,0 +1,17 @@
+{
+  "daily_pnl": 0,
+  "guardian_strikes": 0,
+  "highest_day_pnl": 0,
+  "in_trade": false,
+  "last_error": "exec: retcode 10019",
+  "last_trade_result": "SELL_LIVE",
+  "losses": 0,
+  "peak_balance": 5000,
+  "profitable_days": 0,
+  "running": true,
+  "ticket": 0,
+  "timestamp": "2026-07-28T08:19:22Z",
+  "total_pnl": 0,
+  "trades_today": 25,
+  "wins": 0
+}

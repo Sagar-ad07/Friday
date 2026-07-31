@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Friday">
+  <meta name="apple-touch-icon" content="/static/assets/friday-logo.png">
+  <link rel="manifest" href="/static/friday_ios_manifest.json">
+  <link rel="stylesheet" href="/static/friday_ios.css?v=3">
+  <title>Friday</title>
+</head>
+<body>
+  <div id="app">
+
+    <!-- Status bar: mirrors Android MainActivity top shell -->
+    <header class="bar">
+      <img id="avatar" class="avatar" src="/static/assets/friday-logo.png" alt="Friday" width="32" height="32">
+      <div class="title-wrap">
+        <b class="title" id="agent-name">Friday</b>
+        <span class="muted" id="presence">Here.</span>
+      </div>
+      <span id="conn" class="conn"><img src="/static/assets/friday-logo.png" class="conn-logo" alt=""> <b id="conn-text">···</b></span>
+      <span class="muted" id="ctx-size" title="Approximate context size"></span>
+      <span class="muted" id="session-timer" title="Session duration"></span>
+      <button class="icon-btn" id="settings-btn" title="Settings">⚙</button>
+    </header>
+
+    <!-- Toggle strip: mirrors Android settings (eye / voice / continuous) -->
+    <div class="toggles">
+      <button id="stay" class="tg" title="Keep awake in background">◻ Stay</button>
+      <button id="t-eye" class="tg" title="Screen watch">◉ Eye</button>
+      <button id="t-voice" class="tg on" title="Voice replies">🎙 Voice</button>
+      <button id="t-cont" class="tg" title="Continuous conversation">🎙 Continuous</button>
+    </div>
+
+    <!-- Live eye strip: mirrors Android ScreenEye -->
+    <div id="eye" class="eye">eye idle — enable Eye to let Friday see your screen</div>
+
+    <!-- Conversation mode banner -->
+    <div id="cont-banner" class="cont-banner hidden">
+      <span class="cont-dot"></span>
+      <span class="cont-text">Conversation mode — just speak</span>
+      <button class="cont-stop" id="cont-stop">Stop</button>
+    </div>
+
+    <!-- Conversation: scrollable, matches Android chat size -->
+    <div id="msgs" class="msgs"></div>
+
+    <!-- Action row: mirrors Android main actions -->
+    <div class="row">
+      <button id="share" class="btn">Share screen</button>
+      <button id="cam" class="btn ghost">Camera</button>
+    </div>
+
+    <div class="inrow">
+      <textarea id="inp" rows="1" placeholder="Message Friday…" autocomplete="off"></textarea>
+      <button id="mic" class="mic">🎙</button>
+      <button id="send" class="btn send">Send</button>
+    </div>
+  </div>
+
+  <!-- Settings drawer (mirrors Android SettingsScreen) -->
+  <div class="drawer" id="settings-drawer">
+    <div class="drawer-bg" id="drawer-bg"></div>
+    <div class="drawer-card">
+      <div class="drawer-h">SETTINGS <button class="x" id="drawer-close">✕</button></div>
+      <div class="drawer-b">
+        <div class="section">Appearance</div>
+        <div class="row" style="align-items:center">
+          <div class="kv" style="flex:1">
+            <span class="label">Avatar</span>
+            <span class="muted small">Initial or photo</span>
+          </div>
+          <div class="avatar-sm" id="settings-avatar">
+            <img src="/static/assets/friday-mark.svg" alt="Friday" width="32" height="32">
+          </div>
+        </div>
+        <div class="kv">
+          <span class="label">Text size</span>
+          <input id="set-textsize" type="range" min="0.85" max="1.4" step="0.05" value="1.0">
+          <span class="muted" id="textsize-val">1.0x</span>
+        </div>
+
+        <div class="section">Voice</div>
+        <div class="kv">
+          <span class="label">Voice replies</span>
+          <input id="set-voice" type="checkbox" checked>
+        </div>
+        <div class="kv">
+          <span class="label">Auto-speak</span>
+          <input id="set-autospeak" type="checkbox" checked>
+        </div>
+        <div class="kv">
+          <span class="label">TTS voice</span>
+        </div>
+        <input id="set-voiceid" class="inp" value="en-IN-NeerjaNeural" placeholder="Edge-TTS voice id">
+
+        <div class="section">Conversation</div>
+        <div class="kv">
+          <span class="label">Always listening</span>
+          <input id="set-continuous" type="checkbox">
+        </div>
+        <div class="kv">
+          <span class="label">Listening timeout</span>
+          <button class="mini" id="set-timeout-inc">+1s</button>
+          <span class="muted" id="timeout-val">8s</span>
+        </div>
+
+        <div class="section">Screen & actions</div>
+        <div class="kv">
+          <span class="label">Watch my screen</span>
+          <input id="set-eye" type="checkbox">
+        </div>
+        <div class="kv">
+          <span class="label">Reduce motion</span>
+          <input id="set-motion" type="checkbox">
+        </div>
+
+        <div class="section">Connection</div>
+        <input id="set-server" class="inp" placeholder="Server address">
+        <input id="set-token" class="inp" placeholder="Token (optional)" style="margin-top:6px">
+        <button class="btn block" id="set-export" style="margin-top:4px">Export conversation</button>
+        <button class="btn block" id="set-save" style="margin-top:8px">Save & reload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS 24/7 keep-alive: silent loop holds the page when backgrounded -->
+  <audio id="bg" loop src="/static/assets/silence.mp3" playsinline></audio>
+
+  <script>
+    // Surface any JS error on-screen (no silent dead page).
+    window.addEventListener("error", e => {
+      const b = document.getElementById("err");
+      if (b) b.textContent = "⚠ " + (e.message || e.error || "script error");
+    });
+    window.addEventListener("unhandledrejection", e => {
+      const b = document.getElementById("err");
+      if (b) b.textContent = "⚠ " + (e.reason && e.reason.message || e.reason || "promise error");
+    });
+  </script>
+  <div id="err" class="err"></div>
+  <script src="/static/friday_ios.js?v=3"></script>
+</body>
+</html>

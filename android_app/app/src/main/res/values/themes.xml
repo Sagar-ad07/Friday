@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base app theme (dark, on-brand). Compose drives real colors; this is the
+         window/system shell so the app never flashes white. -->
+    <style name="Theme.Friday" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/friday_bg</item>
+        <item name="android:statusBarColor">@color/friday_bg</item>
+        <item name="android:navigationBarColor">@color/friday_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Splash (Android 12+ SplashScreen API). Shows the Friday mark on obsidian. -->
+    <style name="Theme.Friday.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/friday_bg</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Friday</item>
+    </style>
+
+    <!-- Kill Switch Dialog Theme -->
+    <style name="Theme.Friday.KillSwitch" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:windowBackground">@color/kill_background</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+</resources>

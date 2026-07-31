@@ -1,0 +1,11 @@
+# Keep local.properties (SDK path) and signing keys out of version control.
+local.properties
+keystore.properties
+*.jks
+*.keystore
+*.iml
+.gradle
+/build
+/app/build
+captures
+.DS_Store

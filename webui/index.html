@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friday Control Center</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="/static/assets/friday-mark.svg">
+</head>
+<body>
+  <div id="app">
+    <header class="top-bar">
+      <div class="logo">FRIDAY <span class="tag">CONTROL CENTER</span></div>
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="health-dots" id="health"></div>
+    </header>
+
+    <div class="main-grid">
+      <!-- Left: Accounts -->
+      <aside class="panel accounts">
+        <h2>ACCOUNTS</h2>
+        <div id="accounts"></div>
+      </aside>
+
+      <!-- Center: Activity Stream -->
+      <main class="panel activity">
+        <h2>LIVE ACTIVITY</h2>
+        <div class="stream" id="stream"></div>
+      </main>
+
+       <!-- Right: Status -->
+       <aside class="panel status">
+         <h2>SYSTEM</h2>
+         <div id="system"></div>
+         <h2 style="margin-top:24px">BOT</h2>
+         <div id="bot"></div>
+
+         <h2 style="margin-top:24px">DEVICES</h2>
+         <div id="devices"><div class="dim">loading…</div></div>
+
+         <h2 style="margin-top:24px">TEAM</h2>
+         <div id="team"><div class="dim">loading…</div></div>
+       </aside>
+    </div>
+
+    <!-- Floating chatbox -->
+    <div class="chat-float" id="chat-float">
+      <div class="chat-header" id="chat-header">
+        <span class="chat-title">FRIDAY AI</span>
+        <span class="chat-toggle" id="chat-toggle">▼</span>
+      </div>
+      <div class="chat-body" id="chat-body"></div>
+      <div class="chat-input">
+        <input id="chat-input" type="text" placeholder="Message Friday..." autocomplete="off">
+        <button id="chat-send">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

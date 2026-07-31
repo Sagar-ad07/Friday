@@ -1,0 +1,947 @@
+{
+  "last_scan": "2026-07-24T04:25:13Z",
+  "last_proposal": null,
+  "findings": [
+    {
+      "type": "syntax",
+      "file": "friday\\advanced_response.py",
+      "detail": "Syntax error at line 54: unterminated string literal (detected at line 54)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\agent.py",
+      "detail": "Possible secret at line 24: AGENT_TOKEN = os.getenv(\"FRIDAY_TOKEN\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\agent.py",
+      "detail": "Possible secret at line 37: if not SERVER_URL or not AGENT_TOKEN:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\agent.py",
+      "detail": "Possible secret at line 38: logger.error(\"FRIDAY_SERVER_URL and FRIDAY_TOKEN required\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\agent.py",
+      "detail": "Possible secret at line 46: return {\"Authorization\": f\"Bearer {AGENT_TOKEN}\"}",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\architect.py",
+      "detail": "Possible secret at line 93: raw, _ = llm.chat(messages, role=\"reasoner\", temperature=0.3, max_tokens=4000, j",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\cache.py",
+      "detail": "Possible secret at line 4: cheap token-overlap \"semantic-ish\" match so repeats/cached facts cost 0 calls.",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\cache.py",
+      "detail": "Possible secret at line 29: \"\"\"Loose key: sorted set of significant tokens (len >= 3) so word-order-",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\capabilities.py",
+      "detail": "Possible secret at line 113: \"description\": \"Background sub-agent that autonomously scans the codebase for is",
+      "severity": "high"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\capabilities.py",
+      "detail": "Line 113: \"description\": \"Background sub-agent that autonomously scans the codebase for issues (secrets, synta",
+      "severity": "low"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\cli.py",
+      "detail": "Possible secret at line 142: print(\"No LLM key found. Set DEEPSEEK_API_KEY in .env.\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 17: \"groq\":       (\"https://api.groq.com/openai/v1\", \"GROQ_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 18: \"gemini\":     (\"https://generativelanguage.googleapis.com/v1beta/openai/\", \"GEMI",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 19: \"deepseek\":   (\"https://api.deepseek.com\", \"DEEPSEEK_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 20: \"openrouter\": (\"https://openrouter.ai/api/v1\", \"OPENROUTER_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 21: \"openai\":     (\"https://api.openai.com/v1\", \"OPENAI_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 22: \"sarvam\":     (\"https://api.sarvam.ai\", \"SARVAM_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 23: \"ollama\":     (\"http://localhost:11434/v1\", \"OLLAMA_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 24: \"opencode\":   (\"https://opencode.ai/zen/v1\", \"OPENCODE_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 28: \"DASHSCOPE_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 29: \"zhipu\":      (\"https://open.bigmodel.cn/api/paas/v4/\", \"ZHIPU_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 30: \"nvidia\":     (\"https://integrate.api.nvidia.com/v1\", \"NVIDIA_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 31: \"github\":     (\"https://models.inference.ai.azure.com\", \"GITHUB_TOKEN\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 33: \"deepinfra\":  (\"https://api.deepinfra.com/v1/openai\", \"DEEPINFRA_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 35: \"siliconflow\": (\"https://api.siliconflow.cn/v1\", \"SILICONFLOW_API_KEY\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\config.py",
+      "detail": "Possible secret at line 52: self.api_token = os.getenv(\"FRIDAY_TOKEN\", \"\").strip()",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\core_engine.py",
+      "detail": "Possible secret at line 26: 'secrets': {}",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\earners.py",
+      "detail": "Possible secret at line 87: \"config\": {k: v for k, v in self.config.items() if \"key\" not in k.lower() and \"s",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\eye.py",
+      "detail": "Possible secret at line 92: api_key=config.keys.get(prov, \"dummy\"),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\eye.py",
+      "detail": "Possible secret at line 113: max_tokens=300,",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 34: \"signup_url\": \"https://github.com/settings/tokens\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 124: def test_provider(provider: str, api_key: str, timeout: int = 10) -> bool:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 135: headers = reg[\"headers\"](api_key)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 149: \"max_tokens\": 1,",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 159: def discover_available_models(provider: str, api_key: str) -> List[str]:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 170: headers = reg[\"headers\"](api_key)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 199: api_key = os.getenv(env_var, \"\").strip()",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 206: works = test_provider(provider, api_key)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\free_providers.py",
+      "detail": "Possible secret at line 210: models = discover_available_models(provider, api_key)",
+      "severity": "high"
+    },
+    {
+      "type": "bare_except",
+      "file": "friday\\http_server.py",
+      "detail": "Bare except at line 171",
+      "severity": "medium"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 112: def _find_hardcoded_secrets(filepath: str) -> List[str]:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 114: patterns = [\"password\", \"secret\", \"api_key\", \"token\", \"Ak47\"]",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 126: errors.append(f\"Possible secret at line {i}: {stripped[:80]}\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 173: for err in _find_hardcoded_secrets(fp):",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 174: findings.append({\"type\": \"secret\", \"file\": rel, \"detail\": err, \"severity\": \"high",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 185: High-risk: secrets, logic changes — require approval.\"\"\"",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 189: if f[\"type\"] == \"secret\":",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 212: if target[\"type\"] == \"secret\":",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\improver_agent.py",
+      "detail": "Possible secret at line 213: goal = f\"Remove hardcoded secrets from {target['file']}: {target['detail']}. Mov",
+      "severity": "high"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\improver_agent.py",
+      "detail": "Line 138: if \"TODO\" in line or \"FIXME\" in line or \"HACK\" in line:",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\improver_agent.py",
+      "detail": "Line 219: goal = f\"Resolve TODO item in {target['file']}: {target['detail']}\"",
+      "severity": "low"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 28: client = OpenAI(base_url=config.endpoint(provider), api_key=key)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 34: max_tokens: int = 1024, json_mode: bool = False) -> Tuple[str, str]:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 60: temperature=temperature, max_tokens=max_tokens,",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 120: temperature=temperature, max_tokens=max_tokens,",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 174: max_tokens=min(len(text) + 200, 1024),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 187: api_key = config.keys.get(\"sarvam\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 188: if not api_key:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\llm.py",
+      "detail": "Possible secret at line 192: headers = {\"api-subscription-key\": api_key}",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\memory.py",
+      "detail": "Possible secret at line 239: summary, _ = llm.chat(messages, role=\"companion\", temperature=0.3, max_tokens=10",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\orchestrator.py",
+      "detail": "Possible secret at line 726: max_tokens = 800 if is_simple else 1600",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\orchestrator.py",
+      "detail": "Possible secret at line 729: text, prov = llm.chat(messages, role=role, temperature=temperature, max_tokens=m",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\orchestrator.py",
+      "detail": "Possible secret at line 797: max_tokens=800, json_mode=True)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\orchestrator.py",
+      "detail": "Possible secret at line 851: improved, _ = llm.chat(messages, role=\"verifier\", temperature=0.3, max_tokens=12",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\orchestrator.py",
+      "detail": "Possible secret at line 1387: max_tokens=200, json_mode=True)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\phone_setup.py",
+      "detail": "Possible secret at line 10: \"3. BotFather gives you a TOKEN like: 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11\"",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\phone_setup.py",
+      "detail": "Possible secret at line 11: \"4. Add that token to .env file: TELEGRAM_BOT_TOKEN=your_token_here\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\planning.py",
+      "detail": "Possible secret at line 403: max_tokens=2000",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\prompts.py",
+      "detail": "Possible secret at line 42: - Runs background every 6h: scans all Python files for syntax errors, hardcoded ",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\prompts.py",
+      "detail": "Possible secret at line 179: - NEVER target secrets or credentials: `.env`, any `*.env`, `secrets`,",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\prompts.py",
+      "detail": "Possible secret at line 180: `credentials`, private keys, tokens, passwords, or anything with \"..\" (path esca",
+      "severity": "high"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\prompts.py",
+      "detail": "Line 42: - Runs background every 6h: scans all Python files for syntax errors, hardcoded secrets, bare except",
+      "severity": "low"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\reason.py",
+      "detail": "Possible secret at line 55: - Improver Agent runs in background every 6 hours: scans all Python files for sy",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\reason.py",
+      "detail": "Possible secret at line 86: max_tokens: int = 1400) -> str:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\reason.py",
+      "detail": "Possible secret at line 98: max_tokens=max_tokens)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\reason.py",
+      "detail": "Possible secret at line 113: max_tokens=max_tokens)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\reason.py",
+      "detail": "Possible secret at line 144: max_tokens=1200)",
+      "severity": "high"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\reason.py",
+      "detail": "Line 55: - Improver Agent runs in background every 6 hours: scans all Python files for syntax errors, hardcod",
+      "severity": "low"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\research.py",
+      "detail": "Possible secret at line 160: role=\"coder\", temperature=0.3, max_tokens=2000)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\research.py",
+      "detail": "Possible secret at line 188: role=\"coder\", temperature=0.2, max_tokens=2000)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\screen_watcher.py",
+      "detail": "Possible secret at line 175: summary, _ = chat(messages, role=\"companion\", temperature=0.3, max_tokens=500)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\skill_builder.py",
+      "detail": "Possible secret at line 394: max_tokens=3000,",
+      "severity": "high"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\skill_builder.py",
+      "detail": "Line 282: f\"        # TODO: Implement {skill.name} logic\",",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\skill_builder.py",
+      "detail": "Line 710: examples=[\"Find all TODO comments\", \"Search for function definitions\"],",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\skill_builder.py",
+      "detail": "Line 711: test_cases=[{\"input\": {\"pattern\": \"TODO\", \"path\": \".\"}, \"expected\": \"TODO\"}],",
+      "severity": "low"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 41: FRIDAY_TOKEN = os.getenv(\"FRIDAY_TOKEN\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 44: TELEGRAM_BOT_TOKEN = os.getenv(\"TELEGRAM_BOT_TOKEN\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 62: def __init__(self, token: str):",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 63: self.token = token",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 71: builder = ApplicationBuilder().token(self.token)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 153: headers={\"Authorization\": f\"Bearer {FRIDAY_TOKEN}\"} if FRIDAY_TOKEN else {},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 385: groq_key = os.getenv(\"GROQ_API_KEY\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 405: sarvam_key = os.getenv(\"SARVAM_API_KEY\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 516: if not FRIDAY_SERVER_URL or not FRIDAY_TOKEN:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 528: headers={\"Authorization\": f\"Bearer {FRIDAY_TOKEN}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 534: if not FRIDAY_SERVER_URL or not FRIDAY_TOKEN:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 548: headers={\"Authorization\": f\"Bearer {FRIDAY_TOKEN}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 589: token = os.getenv(\"TELEGRAM_BOT_TOKEN\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 590: if not token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 591: logger.warning(\"Telegram bot not started: TELEGRAM_BOT_TOKEN not set\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 594: bot = TelegramWifeBot(token)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\telegram_bot.py",
+      "detail": "Possible secret at line 601: logger.warning(\"Telegram bot not started - check token\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\trading_engine.py",
+      "detail": "Possible secret at line 276: if not mt5.initialize(login=_tc.MT5_LOGIN, password=_tc.MT5_PASSWORD, server=_tc",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 187: _SECRET_PATTERNS = (\".env\", \"secret\", \"credentials\", \"private_key\", \"id_rsa\", \"t",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 193: Blocks: \"..\" traversal and obvious secret/config files.",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 204: for pat in _SECRET_PATTERNS:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 241: max_tokens=1200, json_mode=True)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 247: f\"Must be inside the project and not a secret file.\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 283: max_tokens=4000, json_mode=True)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\upgrader.py",
+      "detail": "Possible secret at line 379: max_tokens=800)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\voice.py",
+      "detail": "Possible secret at line 45: api_key = config.keys.get(\"sarvam\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\voice.py",
+      "detail": "Possible secret at line 46: if not api_key:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\voice.py",
+      "detail": "Possible secret at line 50: headers = {\"api-subscription-key\": api_key, \"Content-Type\": \"application/json\"}",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wealth.py",
+      "detail": "Possible secret at line 3: The secret weapon: combines research, trading, content, and freelance earning",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wealth.py",
+      "detail": "Possible secret at line 42: \"description\": \"Tracks new crypto airdrops, testnet faucets, and free token clai",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 20: def __init__(self, agent_id: str, owner_token: str, server_url: str):",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 22: self.owner_token = owner_token",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 33: self.telegram_bot_token = os.getenv(\"TELEGRAM_BOT_TOKEN\", \"\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 47: headers={\"Authorization\": f\"Bearer {self.owner_token}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 61: headers={\"Authorization\": f\"Bearer {self.owner_token}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 73: headers={\"Authorization\": f\"Bearer {self.owner_token}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 93: headers={\"Authorization\": f\"Bearer {self.owner_token}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 203: headers={\"Authorization\": f\"Bearer {self.owner_token}\"},",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 213: if not self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 214: logger.warning(\"TELEGRAM_BOT_TOKEN not set; cannot send Telegram message.\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 222: f\"https://api.telegram.org/bot{self.telegram_bot_token}/sendMessage\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 233: if not self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 234: logger.warning(\"TELEGRAM_BOT_TOKEN not set; cannot send voice.\")",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 243: f\"https://api.telegram.org/bot{self.telegram_bot_token}/sendVoice\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 255: if not self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 262: f\"https://api.telegram.org/bot{self.telegram_bot_token}/sendPhoto\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 274: if not self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 279: f\"https://api.telegram.org/bot{self.telegram_bot_token}/getUpdates\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 349: if not self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\wife_agent.py",
+      "detail": "Possible secret at line 368: if self.telegram_bot_token:",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers.py",
+      "detail": "Possible secret at line 36: text, _ = llm.chat(messages, role=worker, temperature=0.7, max_tokens=1200)",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers.py",
+      "detail": "Possible secret at line 45: text, _ = llm.chat(messages, role=worker, temperature=0.6, max_tokens=1200)",
+      "severity": "high"
+    },
+    {
+      "type": "bare_except",
+      "file": "friday\\bridge\\go_bridge.py",
+      "detail": "Bare except at line 244",
+      "severity": "medium"
+    },
+    {
+      "type": "bare_except",
+      "file": "friday\\workers\\builder.py",
+      "detail": "Bare except at line 173",
+      "severity": "medium"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 133: # TODO: Implement the logic",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 155: // TODO: Implement the logic",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 177: // TODO: Implement the logic",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 181: // TODO: Implement the logic",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 201: // TODO: Implement the logic",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 216: -- TODO: Implement the query",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 227: <!-- TODO: Add content -->",
+      "severity": "low"
+    },
+    {
+      "type": "todo",
+      "file": "friday\\workers\\coder.py",
+      "detail": "Line 230: <!-- TODO: Add CSS and JavaScript -->",
+      "severity": "low"
+    },
+    {
+      "type": "bare_except",
+      "file": "friday\\workers\\reasoner.py",
+      "detail": "Bare except at line 193",
+      "severity": "medium"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\reviewer.py",
+      "detail": "Possible secret at line 47: (r'api_key\\s*=\\s*[\\'\"][^\\'\"]{10,}', RiskLevel.CRITICAL, 'Hardcoded API key detec",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\reviewer.py",
+      "detail": "Possible secret at line 48: (r'password\\s*=\\s*[\\'\"][^\\'\"]+', RiskLevel.CRITICAL, 'Hardcoded password detecte",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\reviewer.py",
+      "detail": "Possible secret at line 49: (r'token\\s*=\\s*[\\'\"][^\\'\"]+', RiskLevel.HIGH, 'Hardcoded token detected'),",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\reviewer.py",
+      "detail": "Possible secret at line 299: \"api_key = 'sk-1234567890abcdef'  # Production key\",",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\verifier.py",
+      "detail": "Possible secret at line 166: r'api_key',",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\verifier.py",
+      "detail": "Possible secret at line 167: r'token',",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\verifier.py",
+      "detail": "Possible secret at line 168: r'secret',",
+      "severity": "high"
+    },
+    {
+      "type": "secret",
+      "file": "friday\\workers\\verifier.py",
+      "detail": "Possible secret at line 169: r'password',",
+      "severity": "high"
+    }
+  ],
+  "proposals_made": 0,
+  "proposals_accepted": 0,
+  "proposals_rejected": 0,
+  "total_runs": 1,
+  "enabled": true
+}

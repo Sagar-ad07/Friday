@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108" role="img" aria-label="Friday adaptive foreground">
+  <defs>
+    <linearGradient id="fg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#385CFF"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </linearGradient>
+    <radialGradient id="fnode" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#8CF0DA"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </radialGradient>
+  </defs>
+  <g stroke="url(#fg)" stroke-width="13.5" stroke-linecap="round" fill="none">
+    <path d="M30 92 L30 18"/>
+    <path d="M30 18 L84 18"/>
+    <path d="M30 54 L74 54"/>
+  </g>
+  <circle cx="84" cy="54" r="9" fill="none" stroke="url(#fg)" stroke-width="3"/>
+  <circle cx="84" cy="54" r="3.2" fill="url(#fnode)"/>
+</svg>

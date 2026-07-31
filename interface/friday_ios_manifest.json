@@ -1,0 +1,14 @@
+{
+  "name": "Friday",
+  "short_name": "Friday",
+  "description": "Friday — your AI assistant, on iOS.",
+  "start_url": "/friday_ios.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "icons": [
+    { "src": "/static/assets/friday-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/static/assets/friday-logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

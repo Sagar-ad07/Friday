@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Friday — Phone Eye</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #050816; color: #e6e6e6; font-family: system-ui, sans-serif;
+           height: 100vh; display: flex; flex-direction: column; padding: 14px; gap: 12px; }
+    h1 { font-size: 18px; color: #9be7ff; }
+    .hint { font-size: 13px; color: #8f97b2; }
+    button { padding: 14px; border: none; border-radius: 12px; font-size: 16px;
+             font-weight: 600; cursor: pointer; }
+    .primary { background: #1f6feb; color: #fff; }
+    .ghost { background: #232838; color: #cbd5e1; }
+    .eye { background: #161b2b; border: 1px solid rgba(124,140,255,.4);
+           border-radius: 12px; padding: 12px; font-size: 13px; color: #9be7ff;
+           min-height: 80px; white-space: pre-wrap; }
+    .row { display: flex; gap: 10px; }
+    .row button { flex: 1; }
+    .dot { display:inline-block; width:8px; height:8px; border-radius:50%;
+           background:#55e2c0; margin-right:6px; }
+  </style>
+</head>
+<body>
+  <h1>👁 Friday — Phone Eye</h1>
+  <div class="hint">Share your screen (or use camera). Friday sees it and can talk
+    to you. Your phone works even if the laptop is off — just open the app.</div>
+
+  <div class="row">
+    <button class="primary" id="share">Share screen</button>
+    <button class="ghost" id="cam">Use camera</button>
+  </div>
+  <button class="ghost" id="talk">🎙 Talk to Friday</button>
+
+  <div class="eye" id="eye"><span class="dot"></span>eye idle — share or open camera</div>
+
+  <script>
+    const API = location.origin;  // same brain that served this page
+    const TOKEN = new URLSearchParams(location.search).get("token") || "";
+    const AUTH = TOKEN ? { "Authorization": "Bearer " + TOKEN } : {};
+    let stream = null, canvas, interval = null, kind = "screen";
+
+    const eyeEl = document.getElementById("eye");
+    function setEye(t){ eyeEl.textContent = t; }
+
+    async function pollState(){
+      try {
+        const r = await fetch(API + "/screen/state", { headers: AUTH });
+        const d = await r.json();
+        const ph = d.devices && d.devices.phone;
+        setEye(ph && ph.description ? "👁 " + ph.description.slice(0,160)
+                                     : "eye idle");
+      } catch(e){ setEye("eye offline"); }
+    }
+    setInterval(pollState, 3000); pollState();
+
+    function stopCapture(){
+      if (interval) clearInterval(interval);
+      if (stream) stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+
+    async function startCapture(type){
+      stopCapture();
+      kind = type;
+      try {
+        stream = type === "camera"
+          ? await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+          : await navigator.mediaDevices.getDisplayMedia({ video: true });
+      } catch(e){ setEye("capture denied: " + e.message); return; }
+      const v = document.createElement("video");
+      v.srcObject = stream; v.muted = true; v.play();
+      canvas = document.createElement("canvas");
+      await new Promise(r => setTimeout(r, 400));
+
+      interval = setInterval(async () => {
+        if (!v.videoWidth) return;
+        canvas.width = Math.min(640, v.videoWidth);
+        canvas.height = canvas.width * (v.videoHeight / v.videoWidth);
+        canvas.getContext("2d").drawImage(v, 0, 0, canvas.width, canvas.height);
+        const b64 = canvas.toDataURL("image/jpeg", 0.55).split(",")[1];
+        try {
+          await fetch(API + "/eye/submit", {
+            method: "POST", headers: { "Content-Type": "application/json", ...AUTH },
+            body: JSON.stringify({ device: "phone", kind, image_b64: b64 })
+          });
+        } catch(e){}
+      }, 4000);
+      setEye("👁 sharing…");
+    }
+
+    document.getElementById("share").onclick = () => startCapture("screen");
+    document.getElementById("cam").onclick = () => startCapture("camera");
+    document.getElementById("talk").onclick = () => open(API + "/", "_blank");
+  </script>
+</body>
+</html>

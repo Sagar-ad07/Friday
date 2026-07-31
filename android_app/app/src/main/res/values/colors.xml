@@ -1,0 +1,15 @@
+<resources>
+    <color name="friday_bg">#FF070A12</color>
+    <color name="friday_surface">#FF0C1120</color>
+    <color name="friday_text">#FFE8ECF8</color>
+    <color name="friday_indigo">#FF7C8CFF</color>
+    <color name="friday_mint">#FF55E2C0</color>
+
+    <!-- Kill Switch Colors -->
+    <color name="kill_red">#FFEF4444</color>
+    <color name="kill_red_dark">#FFB91C1C</color>
+    <color name="kill_background">#FF1C0505</color>
+    <color name="kill_warning_bg">#FF3F0505</color>
+    <color name="kill_warning_text">#FFFCA5A5</color>
+    <color name="kill_red_light">#FFFEF2F2</color>
+</resources>

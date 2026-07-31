@@ -1,0 +1,10 @@
+[build]
+  builder = "docker"
+  dockerfilePath = "Dockerfile"
+
+[deploy]
+  startCommand = "./friday -config .env"
+  healthcheckPath = "/trading/status"
+  healthcheckTimeout = 5000
+  restartPolicy = "on-failure"
+  restartPolicyMaxRetries = 5

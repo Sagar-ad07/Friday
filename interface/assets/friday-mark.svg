@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Friday mark">
+  <defs>
+    <linearGradient id="fridayGradM" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9AA6FF"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </linearGradient>
+    <radialGradient id="fridayNodeM" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#EAF7FF"/>
+      <stop offset="0.5" stop-color="#8CF0DA"/>
+      <stop offset="1" stop-color="#55E2C0"/>
+    </radialGradient>
+  </defs>
+  <!-- Transparent background 'mark' version (no tile) for use on the app's dark UI -->
+  <g stroke="url(#fridayGradM)" stroke-width="21" stroke-linecap="round" fill="none">
+    <path d="M92 202 L92 78 Q92 64 106 64 L172 64"/>
+    <line x1="92" y1="133" x2="148" y2="133"/>
+  </g>
+  <circle cx="150" cy="133" r="17" fill="none" stroke="url(#fridayGradM)" stroke-width="7"/>
+  <circle cx="150" cy="133" r="6.5" fill="url(#fridayNodeM)"/>
+</svg>

@@ -1,0 +1,13 @@
+.git
+node_modules
+*.exe
+*.dll
+*.so
+*.dylib
+friday.exe
+go.rar
+go-source.zip
+data/
+__pycache__
+*.log
+.DS_Store

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Friday">
+  <meta name="theme-color" content="#030712">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="apple-touch-icon" href="/static/assets/friday-logo-192.png">
+  <title>Friday</title>
+  <link rel="stylesheet" href="/static/ios.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Status Bar -->
+    <header class="ios-header">
+      <div class="header-left">
+        <img src="/static/assets/friday-mark.svg" width="28" height="28" alt="F">
+        <span>Friday</span>
+      </div>
+      <div class="header-center">
+        <div class="listening-toggle" id="listening-toggle" title="Always Listening">
+          <div class="toggle-track" id="toggle-track">
+            <div class="toggle-thumb" id="toggle-thumb"></div>
+          </div>
+          <span class="toggle-label" id="toggle-label">Sleeping</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Connecting…</span>
+      </div>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="ios-main" id="chat-area">
+      <div class="messages" id="messages">
+        <div class="welcome-card">
+          <div class="avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h1>Friday</h1>
+          <p>Tap the mic or type to start</p>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing" id="typing" hidden>
+        <span></span><span></span><span></span>
+      </div>
+    </main>
+
+    <!-- Input Bar -->
+    <footer class="ios-input-bar">
+      <button class="mic-btn" id="mic-btn" aria-label="Voice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+      </button>
+      <form id="input-form">
+        <input type="text" id="text-input" placeholder="Ask Friday…" autocomplete="off" spellcheck="false" enterkeyhint="send">
+      </form>
+      <button type="submit" form="input-form" class="send-btn" id="send-btn" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </footer>
+
+    <!-- Quick Actions Sheet -->
+    <div class="sheet" id="quick-actions" hidden>
+      <div class="sheet-handle"></div>
+      <h3>Quick Actions</h3>
+      <div class="action-grid">
+        <button class="action-btn" data-action="trading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>Trading</span></button>
+        <button class="action-btn" data-action="bots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg><span>Bots</span></button>
+        <button class="action-btn" data-action="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg><span>Settings</span></button>
+        <button class="action-btn" data-action="logs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg><span>Logs</span></button>
+        <button class="action-btn danger" data-action="kill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg><span>Kill Switch</span></button>
+      </div>
+    </div>
+
+    <!-- Sheet Overlay -->
+    <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+
+    <!-- Pair Device Modal -->
+    <dialog class="modal" id="pair-modal">
+      <form method="dialog" class="modal-content">
+        <header class="modal-header">
+          <h2>Pair New Device</h2>
+          <button class="icon-btn" value="cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <div class="modal-body">
+          <p>Enter the 6-digit code shown on your device</p>
+          <div class="form-group">
+            <label>Device Type</label>
+            <select id="pair-type" class="select">
+              <option value="android">Android</option>
+              <option value="ios">iOS</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pairing Code</label>
+            <input type="text" id="pair-code" class="input" placeholder="123456" maxlength="6" style="text-transform: uppercase; letter-spacing: 4px; text-align: center;" required>
+          </div>
+          <div class="form-group">
+            <label>Device Name</label>
+            <input type="text" id="pair-name" class="input" placeholder="My iPhone / Android">
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn secondary" value="cancel">Cancel</button>
+          <button class="btn primary" id="btn-pair-confirm">Pair Device</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Device Login Modal -->
+    <dialog class="modal" id="login-modal">
+      <form method="dialog" class="modal-content login-modal">
+        <header class="modal-header">
+          <div class="login-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h2>Sign in to Friday</h2>
+          <p class="login-subtitle">Sign in to sync your devices and access all features</p>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="login-email" class="input" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="login-password" class="input" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <div class="form-group">
+            <label>Device Name</label>
+            <input type="text" id="login-device-name" class="input" placeholder="My iPhone">
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn secondary" value="cancel">Cancel</button>
+          <button class="btn primary" id="btn-login-confirm">Sign In</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Sheet Overlay -->
+    <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+
+    <!-- Pair Device Modal -->
+    <dialog class="modal" id="pair-modal">
+      <form method="dialog" class="modal-content">
+        <header class="modal-header">
+          <h2>Pair New Device</h2>
+          <button class="icon-btn" value="cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </header>
+        <div class="modal-body">
+          <p>Enter the 6-digit code shown on your device</p>
+          <div class="form-group">
+            <label>Device Type</label>
+            <select id="pair-type" class="select">
+              <option value="android">Android</option>
+              <option value="ios">iOS</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pairing Code</label>
+            <input type="text" id="pair-code" class="input" placeholder="123456" maxlength="6" style="text-transform: uppercase; letter-spacing: 4px; text-align: center;" required>
+          </div>
+          <div class="form-group">
+            <label>Device Name</label>
+            <input type="text" id="pair-name" class="input" placeholder="My iPhone / Android">
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn secondary" value="cancel">Cancel</button>
+          <button class="btn primary" id="btn-pair-confirm">Pair Device</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Device Login Modal -->
+    <dialog class="modal" id="login-modal">
+      <form method="dialog" class="modal-content login-modal">
+        <header class="modal-header">
+          <div class="login-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h2>Sign in to Friday</h2>
+          <p class="login-subtitle">Sign in to sync your devices and access all features</p>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="login-email" class="input" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="login-password" class="input" placeholder="••••••••" required>
+          </div>
+          <div class="form-group">
+            <label>Device Name</label>
+            <input type="text" id="login-device-name" class="input" placeholder="My iPhone">
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn secondary" value="cancel">Cancel</button>
+          <button class="btn primary" id="btn-login-confirm">Sign In</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Sheet Overlay -->
+
+  <script src="/static/ios.js"></script>
+</body>
+</html>
