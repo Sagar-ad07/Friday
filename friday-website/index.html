@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friday AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192x192.png">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-robot"></i>
+                <span>Friday AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active" data-section="home">Home</a>
+                <a href="#features" class="nav-link" data-section="features">Features</a>
+                <a href="#tools" class="nav-link" data-section="tools">Tools</a>
+                <a href="#pricing" class="nav-link" data-section="pricing">Pricing</a>
+                <a href="signup.html" class="nav-link" data-section="signup">Sign Up</a>
+                <a href="dashboard.html" class="nav-link" data-section="dashboard">Dashboard</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>NEW</span>
+            </div>
+            <h1 class="hero-title">Friday AI</h1>
+            <p class="hero-subtitle">77 tools. Real AI. Voice. Trading. One platform.</p>
+            <div class="hero-actions">
+                <button class="btn-primary" onclick="showPricing()">
+                    <i class="fas fa-rocket"></i> Start Free Trial
+                </button>
+                <button class="btn-secondary" onclick="scrollToSection('features')">
+                    <i class="fas fa-eye"></i> Explore
+                </button>
+                <a href="signup.html" class="btn-secondary" style="text-decoration:none;">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <i class="fas fa-tools"></i>
+                <strong>77</strong> Tools
+            </div>
+            <div class="stat">
+                <i class="fas fa-language"></i>
+                <strong>22</strong> Languages
+            </div>
+            <div class="stat">
+                <i class="fas fa-bolt"></i>
+                <strong>Real</strong> AI
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Features</h2>
+            </div>
+            <div class="features-tabs">
+                <button class="feature-tab active" data-tab="ai" onclick="switchFeatureTab('ai')">
+                    <i class="fas fa-brain"></i> AI Intelligence
+                </button>
+                <button class="feature-tab" data-tab="voice" onclick="switchFeatureTab('voice')">
+                    <i class="fas fa-microphone"></i> Voice
+                </button>
+                <button class="feature-tab" data-tab="trading" onclick="switchFeatureTab('trading')">
+                    <i class="fas fa-chart-line"></i> Trading
+                </button>
+                <button class="feature-tab" data-tab="tools" onclick="switchFeatureTab('tools')">
+                    <i class="fas fa-cube"></i> Tools
+                </button>
+            </div>
+            <div class="feature-tab-content active" id="tab-ai">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Real AI</h3>
+                        <p>Context-aware, not templates. Multi-turn conversations that understand you.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Context-aware responses</li>
+                                <li><i class="fas fa-check"></i> Multi-turn conversations</li>
+                                <li><i class="fas fa-check"></i> Adaptive learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Self-Healing</h3>
+                        <p>Detects and fixes issues automatically. Never break your workflow.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Auto error detection</li>
+                                <li><i class="fas fa-check"></i> Smart recovery</li>
+                                <li><i class="fas fa-check"></i> Continuous optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                        <h3>Checkpoints</h3>
+                        <p>Save progress, rollback anytime. Never lose your work.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Instant checkpoints</li>
+                                <li><i class="fas fa-check"></i> One-click rollback</li>
+                                <li><i class="fas fa-check"></i> Change tracking</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-tab-content" id="tab-voice">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-microphone"></i></div>
+                        <h3>Voice Control</h3>
+                        <p>Hands-free development. Natural language interaction.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Voice commands</li>
+                                <li><i class="fas fa-check"></i> 22 languages</li>
+                                <li><i class="fas fa-check"></i> Feedback system</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-tab-content" id="tab-trading">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <h3>Trading Engine</h3>
+                        <p>AI-powered signals, automated execution, risk management.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Real-time data</li>
+                                <li><i class="fas fa-check"></i> AI signals</li>
+                                <li><i class="fas fa-check"></i> Risk management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-tab-content" id="tab-tools">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3>Dev Tools</h3>
+                        <p>Code generator, reviewer, API builder, debugger.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Code Generator</li>
+                                <li><i class="fas fa-check"></i> Code Reviewer</li>
+                                <li><i class="fas fa-check"></i> API Builder</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-folder"></i></div>
+                        <h3>File Tools</h3>
+                        <p>Organize, merge, convert, format files.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> File Organizer</li>
+                                <li><i class="fas fa-check"></i> File Converter</li>
+                                <li><i class="fas fa-check"></i> Format Tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-cube"></i> Tools</h2>
+                <p>77 integrated tools. Tap to browse.</p>
+            </div>
+            <div class="tools-categories">
+                <button class="tool-cat active" onclick="switchToolCat(this, 'dev')">
+                    <i class="fas fa-code"></i> Dev
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'file')">
+                    <i class="fas fa-folder"></i> Files
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'test')">
+                    <i class="fas fa-vial"></i> Test
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'comm')">
+                    <i class="fas fa-comments"></i> Comms
+                </button>
+            </div>
+            <div class="tool-grid" id="tool-grid-dev">
+                <div class="tool-item" onclick="showToast('Code Generator - coming soon')">
+                    <i class="fas fa-magic"></i>
+                    <span>Generator</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Code Reviewer - coming soon')">
+                    <i class="fas fa-search"></i>
+                    <span>Reviewer</span>
+                </div>
+                <div class="tool-item" onclick="showToast('API Builder - coming soon')">
+                    <i class="fas fa-plug"></i>
+                    <span>API Builder</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Git Helper - coming soon')">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git Helper</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Code Formatter - coming soon')">
+                    <i class="fas fa-indent"></i>
+                    <span>Formatter</span>
+                </div>
+            </div>
+            <div class="tool-grid" id="tool-grid-file" style="display:none">
+                <div class="tool-item" onclick="showToast('File Organizer - coming soon')">
+                    <i class="fas fa-sort"></i>
+                    <span>Organizer</span>
+                </div>
+                <div class="tool-item" onclick="showToast('File Converter - coming soon')">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Converter</span>
+                </div>
+                <div class="tool-item" onclick="showToast('PDF Processor - coming soon')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Tools</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Text Editor - coming soon')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Editor</span>
+                </div>
+            </div>
+            <div class="tool-grid" id="tool-grid-test" style="display:none">
+                <div class="tool-item" onclick="showToast('Test Generator - coming soon')">
+                    <i class="fas fa-vial"></i>
+                    <span>Generator</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Security Scanner - coming soon')">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Load Tester - coming soon')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Load Test</span>
+                </div>
+            </div>
+            <div class="tool-grid" id="tool-grid-comm" style="display:none">
+                <div class="tool-item" onclick="showToast('Chat Assistant - coming soon')">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Chat</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Meeting Notes - coming soon')">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Meetings</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Feedback System - coming soon')">
+                    <i class="fas fa-star"></i>
+                    <span>Feedback</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-tags"></i> Pricing</h2>
+                <p>Simple, transparent. Free trial included.</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card" onclick="showPricing('individual')">
+                    <div class="pricing-header">
+                        <i class="fas fa-user"></i>
+                        <h3>Individual</h3>
+                        <div class="price">$49<span>/mo</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 77 tools</li>
+                        <li><i class="fas fa-check"></i> Real AI</li>
+                        <li><i class="fas fa-check"></i> Voice commands</li>
+                        <li><i class="fas fa-check"></i> 22 languages</li>
+<li><i class="fas fa-check"></i> Email support</li>
+                     </ul>
+                     <button class="btn-primary full-width" onclick="window.location.href='signup.html'">
+                         <i class="fas fa-rocket"></i> Start Free Trial
+                     </button>
+                 </div>
+                 <div class="pricing-card featured" onclick="showPricing('professional')">
+                    <div class="popular-badge"><i class="fas fa-fire"></i> Popular</div>
+                    <div class="pricing-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Professional</h3>
+                        <div class="price">$149<span>/mo</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Individual</li>
+                        <li><i class="fas fa-check"></i> Team collaboration</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Custom training</li>
+                    </ul>
+                    <button class="btn-primary full-width">
+                        <i class="fas fa-rocket"></i> Start Trial
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+            </div>
+            <form id="contactForm" onsubmit="return handleContactSubmit(event)" action="https://formspree.io/f/mwvgjygb" method="POST">
+                <input type="hidden" name="_subject" value="New contact from Friday AI">
+                <input type="hidden" name="_next" value="https://Sagar-ad07.github.io/Friday/thank-you.html">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cname"><i class="fas fa-user"></i> Name</label>
+                        <input type="text" id="cname" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="cemail"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="cemail" name="email" required placeholder="you@email.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cinterest"><i class="fas fa-flag"></i> Interest</label>
+                    <select id="cinterest" name="interest">
+                        <option value="individual">Individual Plan</option>
+                        <option value="professional">Professional Plan</option>
+                        <option value="enterprise">Enterprise Plan</option>
+                        <option value="support">Technical Support</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cmessage"><i class="fas fa-comment"></i> Message</label>
+                    <textarea id="cmessage" name="message" rows="4" required placeholder="Tell us what you need..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+            <div id="formSuccess" class="form-success" style="display:none">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank You!</h3>
+                <p>Message sent. We'll respond within 24 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <i class="fas fa-robot"></i>
+                    <span>Friday AI</span>
+                    <p>Your complete AI development assistant.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="documentation.html">Docs</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <a href="https://github.com/friday-ai" target="_blank">GitHub</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Friday AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script></body>
+</html>

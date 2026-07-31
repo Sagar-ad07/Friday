@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Friday AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192x192.png"><meta name="theme-color" content="#6366f1"><link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .thank-hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 100px 24px; text-align: center;
+            background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.15) 0%, transparent 60%);
+        }
+        .thank-card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 48px 40px; max-width: 480px; width: 100%;
+        }
+        .thank-card i { font-size: 4rem; color: var(--accent); margin-bottom: 20px; display: block; }
+        .thank-card h2 { margin-bottom: 12px; }
+        .thank-card p { color: var(--text-dim); margin-bottom: 24px; line-height: 1.6; }
+        .thank-card a {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--primary); color: white; padding: 14px 28px;
+            border-radius: var(--radius); text-decoration: none; font-weight: 600;
+            transition: all 0.2s;
+        }
+        .thank-card a:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .thank-card .details { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: left; }
+        .thank-card .details h4 { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 12px; }
+        .thank-card .details li { padding: 4px 0; color: var(--text-dim); font-size: 0.85rem; list-style: none; display: flex; align-items: center; gap: 8px; }
+        .thank-card .details li i { color: var(--accent); font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+    <section class="thank-hero">
+        <div class="thank-card">
+            <i class="fas fa-check-circle"></i>
+            <h2>Welcome to Friday AI!</h2>
+            <p>Your free 14-day trial has been started. Check your email to verify your account and get started.</p>
+            <a href="index.html"><i class="fas fa-rocket"></i> Go to Dashboard</a>
+            <div class="details">
+                <h4>What's next?</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Verify your email address</li>
+                    <li><i class="fas fa-check"></i> Explore 77 tools</li>
+                    <li><i class="fas fa-check"></i> Try voice commands</li>
+                    <li><i class="fas fa-check"></i> Start trading (Exness)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script></body>
+</html>

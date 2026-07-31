@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Friday AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192x192.png"><meta name="theme-color" content="#6366f1"><link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .signup-hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 100px 24px 60px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.15) 0%, transparent 60%);
+        }
+        .signup-card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 48px 40px; max-width: 480px; width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .signup-card .logo {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.5rem; font-weight: 700; color: var(--primary-light);
+            margin-bottom: 32px; justify-content: center;
+        }
+        .signup-card .logo i { font-size: 2rem; }
+        .signup-card h2 { text-align: center; margin-bottom: 8px; font-size: 1.5rem; }
+        .signup-card .subtitle { text-align: center; color: var(--text-dim); margin-bottom: 32px; font-size: 0.9rem; }
+        .signup-card .form-group { margin-bottom: 20px; }
+        .signup-card .form-group label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-dim); margin-bottom: 8px; }
+        .signup-card .form-group label i { color: var(--primary-light); font-size: 0.8rem; }
+        .signup-card input, .signup-card select {
+            width: 100%; padding: 12px 16px; background: var(--bg);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-sm);
+            color: var(--text); font-size: 0.9rem; font-family: inherit; outline: none;
+            transition: all 0.2s;
+        }
+        .signup-card input:focus, .signup-card select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+        .signup-card input::placeholder { color: var(--text-dim); }
+        .signup-card .btn-primary {
+            width: 100%; padding: 14px; justify-content: center; margin-top: 8px;
+        }
+        .signup-card .login-link {
+            text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);
+        }
+        .signup-card .login-link a { color: var(--primary-light); text-decoration: none; font-weight: 500; }
+        .signup-card .login-link a:hover { text-decoration: underline; }
+        .signup-card .trial-badge {
+            text-align: center; margin-bottom: 24px;
+            background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
+            padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; color: var(--accent);
+        }
+        .signup-card .trial-badge i { margin-right: 6px; }
+        .signup-features { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .signup-features h4 { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px; text-align: center; }
+        .signup-features ul { list-style: none; }
+        .signup-features li { padding: 6px 0; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-dim); }
+        .signup-features li i { color: var(--accent); font-size: 0.75rem; }
+        .signup-error { color: #ef4444; font-size: 0.8rem; margin-top: 4px; display: none; }
+        .signup-success { text-align: center; padding: 40px 20px; display: none; }
+        .signup-success i { font-size: 3rem; color: var(--accent); margin-bottom: 16px; display: block; }
+        .signup-success h3 { margin-bottom: 8px; }
+        .signup-success p { color: var(--text-dim); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <section class="signup-hero">
+        <div class="signup-card">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>Friday AI</span>
+            </div>
+            <h2>Create Free Account</h2>
+            <p class="subtitle">Start your 14-day free trial. No credit card required.</p>
+            <div class="trial-badge"><i class="fas fa-gift"></i> Free 14-Day Trial</div>
+
+            <form id="signupForm" onsubmit="return handleSignup(event)" action="https://formspree.io/f/mwvgjygb" method="POST">
+                <input type="hidden" name="_subject" value="New Signup - Friday AI Free Trial">
+                <input type="hidden" name="_next" value="https://Sagar-ad07.github.io/Friday/signup-thankyou.html">
+
+                <div class="form-group">
+                    <label for="sname"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="sname" name="name" required placeholder="Your full name">
+                    <div class="signup-error" id="nameError">Please enter your name</div>
+                </div>
+                <div class="form-group">
+                    <label for="semail"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="semail" name="email" required placeholder="you@email.com">
+                    <div class="signup-error" id="emailError">Please enter a valid email</div>
+                </div>
+                <div class="form-group">
+                    <label for="spass"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="spass" name="password" required placeholder="Min 6 characters" minlength="6">
+                    <div class="signup-error" id="passError">Password must be at least 6 characters</div>
+                </div>
+                <div class="form-group">
+                    <label for="splan"><i class="fas fa-flag"></i> Plan</label>
+                    <select id="splan" name="plan">
+                        <option value="individual">Individual - $49/mo</option>
+                        <option value="professional">Professional - $149/mo</option>
+                        <option value="enterprise">Enterprise - Custom</option>
+                        <option value="trial">Free Trial Only</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Start Free Trial
+                </button>
+            </form>
+
+            <div class="signup-success" id="signupSuccess">
+                <i class="fas fa-check-circle"></i>
+                <h3>Welcome to Friday AI!</h3>
+                <p>Check your email to verify your account and start your free trial.</p>
+            </div>
+
+            <div class="login-link">
+                Already have an account? <a href="#">Sign in</a>
+            </div>
+
+            <div class="signup-features">
+                <h4>What you get</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> 77 integrated tools</li>
+                    <li><i class="fas fa-check"></i> Real AI intelligence</li>
+                    <li><i class="fas fa-check"></i> Voice commands</li>
+                    <li><i class="fas fa-check"></i> 22 languages</li>
+                    <li><i class="fas fa-check"></i> 14-day free trial</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+            var name = document.getElementById('sname').value.trim();
+            var email = document.getElementById('semail').value.trim();
+            var pass = document.getElementById('spass').value;
+            var valid = true;
+
+            document.getElementById('nameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('passError').style.display = 'none';
+
+            if (!name) { document.getElementById('nameError').style.display = 'block'; valid = false; }
+            if (!email || !email.includes('@')) { document.getElementById('emailError').style.display = 'block'; valid = false; }
+            if (!pass || pass.length < 6) { document.getElementById('passError').style.display = 'block'; valid = false; }
+
+            if (!valid) return false;
+
+            var form = event.target;
+            var btn = form.querySelector('button[type="submit"]');
+            var origText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            btn.disabled = true;
+
+            var formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(resp) {
+                if (resp.ok) {
+                    form.style.display = 'none';
+                    document.querySelector('.trial-badge').style.display = 'none';
+                    document.querySelector('.login-link').style.display = 'none';
+                    document.querySelector('.signup-features').style.display = 'none';
+                    document.getElementById('signupSuccess').style.display = 'block';
+                } else {
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Try Again';
+                    btn.disabled = false;
+                    setTimeout(function() { btn.innerHTML = origText; btn.disabled = false; }, 3000);
+                }
+            }).catch(function() {
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Try Again';
+                btn.disabled = false;
+                setTimeout(function() { btn.innerHTML = origText; btn.disabled = false; }, 3000);
+            });
+
+            return false;
+        }
+    </script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script></body>
+</html>

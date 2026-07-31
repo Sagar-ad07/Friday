@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Friday AI Documentation - Learn how to use Friday AI with 77 integrated tools for development assistance">
+    <title>Documentation - Friday AI</title>
+    <link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192x192.png"><meta name="theme-color" content="#6366f1"><link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Documentation-specific styles */
+        .docs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .docs-sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+        }
+
+        .docs-sidebar h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .docs-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .docs-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .docs-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .docs-nav a:hover,
+        .docs-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .docs-nav a.active {
+            font-weight: 600;
+        }
+
+        .docs-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+        }
+
+        .docs-section {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .docs-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .docs-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--text-dark);
+        }
+
+        .docs-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .docs-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .docs-section ul,
+        .docs-section ol {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .docs-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .docs-section li::marker {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .code-block {
+            background: var(--bg-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #e5e7eb;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            background: none;
+            padding: 0;
+            border: none;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-grid-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-grid-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .feature-grid-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .quick-start {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .quick-start h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .quick-start p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .quick-start code {
+            background: rgba(255, 255, 255, getting-started 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        .api-reference {
+            background: var(--bg-dark);
+            color: #e5e7eb;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .api-reference h3 {
+            color: white;
+        }
+
+        .api-reference h4 {
+            color: #a5b4fc;
+        }
+
+        .api-reference code {
+            background: rgba(255, 255, 255, getting-started 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            color: #a5b4fc;
+        }
+
+        .api-reference pre {
+            color: #e5e7eb;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .compatibility-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .compatibility-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .compatibility-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .compatibility-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .docs-content {
+                grid-template-columns: 1fr;
+            }
+
+            .docs-sidebar {
+                display: none;
+            }
+        }
+
+        .getting-started {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .getting-started h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .getting-started p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .getting-started code {
+            background: rgba(255, 255, 255, getting-started 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            color: var(--text-secondary);
+        }
+
+        .endpoint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .endpoint-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .endpoint-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .endpoint-card code {
+            background: var(--bg-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .endpoint-card p {
+            font-size: 0.95rem;
+            margin-top: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Friday AI</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="documentation.html" class="nav-link">Documentation</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="https://github.com/friday-ai/friday" target="_blank" class="nav-link github">GitHub</a>
+            </div>
+            <button class="nav-cta" onclick="showPricing()">Get Started</button>
+        </div>
+    </nav>
+
+    <div class="docs-container">
+        <div class="docs-content">
+            <!-- Sidebar Navigation -->
+            <aside class="docs-sidebar">
+                <h3>Getting Started</h3>
+                <nav class="docs-nav">
+                    <ul>
+                        <li><a href="#quick-start" class="active">Quick Start</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#first-steps">First Steps</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#voice">Voice Commands</a></li>
+                        <li><a href="#tools">77 Tools</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#integration">Integration</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="docs-section">
+                <div class="getting-started">
+                    <h2>🚀 Getting Started with Friday AI</h2>
+                    <p>Start using Friday AI in minutes. Free 14-day trial, no credit card required.</p>
+                </div>
+
+                <!-- Quick Start -->
+                <h2 id="quick-start">⚡ Quick Start</h2>
+                <p>Welcome to Friday AI! Here's how to get started with your AI-powered development assistant in under 5 minutes.</p>
+
+                <h3>1. Choose Your Plan</h3>
+                <p>Start with our <strong>Free Trial</strong> to explore Friday AI without commitment.</p>
+                <ul>
+                    <li><strong>Individual Plan</strong> - $49/month for personal use</li>
+                    <li><strong>Professional Plan</strong> - $149/month for teams</li>
+                    <li><strong>Enterprise Plan</strong> - Custom pricing for large teams</li>
+                </ul>
+
+                <h3>2. Sign Up</h3>
+                <p>Click the "Get Started" button to create your Friday AI account.</p>
+
+                <h3>3. Explore Features</h3>
+                <p>Friday AI comes with 77 integrated tools. Start using them immediately.</p>
+
+                <h3>4. Start Developing</h3>
+                <p>Ask Friday AI anything about development, get help with code, and automate your workflow.</p>
+
+                <!-- Installation -->
+                <h2 id="installation">⚙️ Installation</h2>
+                <p>Friday AI can be installed and used in multiple ways.</p>
+
+                <h3>Option 1: Web Application</h3>
+                <p>Friday AI is available as a web application. No installation required!</p>
+                <div class="code-block">
+                    <pre>1. Visit https://friday.ai
+2. Sign up for free trial
+3. Start using Friday immediately
+4. No installation, no setup required</pre>
+                </div>
+
+                <h3>Option 2: CLI Tool</h3>
+                <p>For power users, Friday AI is available as a command-line tool.</p>
+                <div class="code-block">
+                    <pre>1. Download Friday AI CLI
+2. Install dependencies
+3. Configure your API key
+4. Start using from command line</pre>
+                </div>
+
+                <h3>Option 3: Desktop Application</h3>
+                <p>Friday AI is available as a native desktop application.</p>
+                <ul>
+                    <li>Download for Windows</li>
+                    <li>Download for macOS</li>
+                    <li>Download for Linux</li>
+                </ul>
+
+                <h3>Option 4: API Integration</h3>
+                <p>Friday AI offers a robust API for developers who want to integrate AI into their own applications.</p>
+
+                <!-- First Steps -->
+                <h2 id="first-steps">🎯 First Steps</h2>
+                <p>Learn how to get the most out of Friday AI from day one.</p>
+
+                <h3>Start with a Conversation</h3>
+                <p>Friday AI is your development assistant. Start by asking questions.</p>
+                <div class="code-block">
+                    <pre>"Help me write a Python function for data analysis"
+"Create a React component for a user dashboard"
+"Debug this code snippet for me"</pre>
+                </div>
+
+                <h3>Use Voice Commands</h3>
+                <p>Use your voice to interact with Friday AI for hands-free development.</p>
+                <div class="code-block">
+                    <pre>"Open the code editor"
+"Analyze this code"
+"Review my recent changes"
+"Generate tests for this function"</pre>
+                </div>
+
+                <h3>Explore Tools</h3>
+                <p>Friday AI has 77 tools at your disposal.</p>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <h4>Development Tools</h4>
+                        <p>Code generator, reviewer, API builder, database designer</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>File Management</h4>
+                        <p>Organizer, duplicate finder, converter tools</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Testing Tools</h4>
+                        <p>Test generator, coverage, security scanner</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Analytics Tools</h4>
+                        <p>Data analyzer, visualizer, report generator</p>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <h2 id="features">✨ Features</h2>
+                <p>Friday AI comes with powerful features designed for modern development.</p>
+
+                <h3>Real AI Intelligence</h3>
+                <p>Friday AI uses real AI models for context-aware responses, not templates.</p>
+                <ul>
+                    <li>Understands development context</li>
+                    <li>Multi-turn conversations</li>
+                    <li>Adaptive learning</li>
+                    <li>Industry knowledge</li>
+                </ul>
+
+                <h3>Voice System</h3>
+                <p>Control Friday AI with your voice for hands-free development.</p>
+                <ul>
+                    <li>Voice commands</li>
+                    <li>Natural language interaction</li>
+                    <li>Voice feedback</li>
+                    <li>Multi-language support</li>
+                </ul>
+
+                <h3>Trading System</h3>
+                <p>Integrate AI with trading for automated analysis and execution.</p>
+                <ul>
+                    <li>Real-time market data</li>
+                    <li>AI-powered trading signals</li>
+                    <li>Automated execution</li>
+                    <li>Risk management</li>
+                </ul>
+
+                <!-- Voice Commands -->
+                <h2 id="voice">🎙️ Voice Commands</h2>
+                <p>Friday AI's voice system lets you control development hands-free.</p>
+
+                <h3>Available Commands</h3>
+                <div class="code-block">
+                    <pre>"Create a new file"
+"Review my code"
+"Fix this bug"
+"Generate documentation"
+"Run tests"
+"Build project"
+"Deploy application"
+"Analyze this code"
+"Find bugs"
+"Optimize performance"</pre>
+                </div>
+
+                <h3>Multi-Language Voice</h3>
+                <p>Friday AI supports voice commands in multiple languages.</p>
+                <ul>
+                    <li>English (Primary)</li>
+                    <li>Spanish</li>
+                    <li>French</li>
+                    <li>German</li>
+                    <li>Portuguese</li>
+                    <li>Italian</li>
+                    <li>Russian</li>
+                    <li>Chinese (Simplified)</li>
+                    <li>Japanese</li>
+                    <li>Korean</li>
+                    <li>12 more languages</li>
+                </ul>
+
+                <!-- Tools -->
+                <h2 id="tools">🔧 77 Integrated Tools</h2>
+                <p>Friday AI combines 77 powerful tools into one integrated platform.</p>
+
+                <h3>Development Tools</h3>
+                <p>Friday AI helps with all aspects of development.</p>
+                <ul>
+                    <li>Code Generator & Reviewer</li>
+                    <li>API Builder & Tester</li>
+                    <li>Database Designer</li>
+                    <li>ORM Generator</li>
+                    <li>WebSocket Debugger</li>
+                    <li>REST Client & Generator</li>
+                    <li>GraphQL Client & Builder</li>
+                    <li>gRPC Client & Tools</li>
+                    <li>Documentation Generator</li>
+                    <li>Webhook Tester</li>
+                </ul>
+
+                <h3>File Management</h3>
+                <p>Organize and manage your files efficiently.</p>
+                <ul>
+                    <li>File Organizer</li>
+                    <li>File Merger & Splitter</li>
+                    <li>PDF Processor</li>
+                    <li>Image Converter</li>
+                    <li>Archive Manager</li>
+                    <li>Document Converter</li>
+                    <li>Text & Markdown Editor</li>
+                    <li>Format Tools</li>
+                </ul>
+
+                <h3>Testing Tools</h3>
+                <p>Friday AI helps ensure code quality and reliability.</p>
+                <ul>
+                    <li>Unit Test Generator</li>
+                    <li>Integration Test Runner</li>
+                    <li>Performance Tester</li>
+                    <li>Security Scanner</li>
+                    <li>Code Coverage Tools</li>
+                    <li>Load Tester</li>
+                    <li>Mock Server Generator</li>
+                    <li>Stub Generator</li>
+                    <li>Regression Test Suite</li>
+                </ul>
+
+                <h3>Analytics Tools</h3>
+                <p>Analyze data and create visualizations.</p>
+                <ul>
+                    <li>Data Analyzer</li>
+                    <li>Statistics Calculator</li>
+                    <li>Data Visualizer</li>
+                    <li>Report Generator</li>
+                    <li>Chart Creator</li>
+                    <li>Table Converter</li>
+                    <li>Data Cleaner</li>
+                    <li>Query Builder</li>
+                    <li>JSON Validator</li>
+                    <li>CSV Parser</li>
+                </ul>
+
+                <!-- API Reference -->
+                <h2 id="api">📋 API Reference</h2>
+                <p>Friday AI provides a robust API for developers.</p>
+
+                <h3>Authentication</h3>
+                <p>All API requests require authentication via API key.</p>
+                <div class="api-reference">
+                    <h3>GET /api/health</h3>
+                    <h4>Health Check</h4>
+                    <p>Check if the API is operational</p>
+                    <pre>GET /api/health
+Authorization: Bearer YOUR_API_KEY
+</pre>
+                    <p><strong>Response:</strong></p>
+                    <pre>{
+  "status": "ok",
+  "version": "1.0.0",
+  "timestamp": 1645000000000
+}</pre>
+                </div>
+
+                <div class="api-reference">
+                    <h3>POST /api/chat</h3>
+                    <h4>Send Chat Message</h4>
+                    <p>Send a message to Friday AI</p>
+                    <pre>POST /api/chat
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "message": "Help me with Python",
+  "context": "code_development",
+  "language": "python"
+}
+</pre>
+                </div>
+
+                <h3>Response Codes</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-success">200</span></td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">400</span></td>
+                                <td>Bad Request</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-info">401</span></td>
+                                <td>Unauthorized</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">404</span></td>
+                                <td>Not Found</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">500</span></td>
+                                <td>Internal Server Error</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Integration -->
+                <h2 id="integration">🔗 Integration</h2>
+                <p>Integrate Friday AI into your workflow seamlessly.</p>
+
+                <h3>Development Environment</h3>
+                <p>Friday AI works with all major development environments.</p>
+                <div class="compatibility-list">
+                    <div class="compatibility-item">
+                        <h4>VS Code</h4>
+                        <p>Extension available</p>
+                    </div>
+                    <div class="compatibility-item">
+                        <h4>JetBrains</h4>
+                        <p>Plugin available</p>
+                    </div>
+                    <div class="compatibility-item">
+                        <h4>Sublime Text</h4>
+                        <p>Plugin available</p>
+                    </div>
+                    <div class="compatibility-item">
+                        <h4>Atom</h4>
+                        <p>Package available</p>
+                    </div>
+                </div>
+
+                <h3>CI/CD Integration</h3>
+                <p>Friday AI can be integrated into CI/CD pipelines for automated code review and testing.</p>
+                <ul>
+                    <li>GitHub Actions</li>
+                    <li>GitLab CI</li>
+                    <li>CircleCI</li>
+                    <li>Jenkins</li>
+                    <li>Travis CI</li>
+                </ul>
+
+                <!-- Examples -->
+                <h2 id="examples">💡 Usage Examples</h2>
+                <p>See how Friday AI can help you in real development scenarios.</p>
+
+                <h3>Example 1: Code Review</h3>
+                <div class="code-block">
+                    <pre>Friday AI: "Review this Python code for security issues"
+Code: 
+def calculate_average(numbers):
+    return sum(numbers) / len(numbers)
+
+Friday AI: "I've identified 3 potential security issues:
+1. Potential division by zero if numbers is empty
+2. No input validation
+3. Missing error handling
+
+Here's the fixed version:
+def calculate_average(numbers):
+    if not numbers:
+        return 0.0
+    return sum(numbers) / len(numbers)</pre>
+                </div>
+
+                <h3>Example 2: Test Generation</h3>
+                <div class="code-block">
+                    <pre>Friday AI: "Generate unit tests for this function"
+Code:
+def calculate_discount(price, percentage):
+    return price * (1 - percentage / 100)
+
+Friday AI: "Here are comprehensive unit tests:
+import unittest
+
+class TestCalculateDiscount(unittest.TestCase):
+    def test_normal_discount(self):
+        self.assertEqual(calculate_discount(100, 10), 90.0)
+    def test_zero_discount(self):
+        self.assertEqual(calculate_discount(100, 0), 100.0)
+    def test_max_discount(self):
+        self.assertEqual(calculate_discount(100, 100), 0.0)
+    def test_fractional_discount(self):
+        self.assertAlmostEqual(calculate_discount(100, 25), 75.0)</pre>
+                </div>
+
+                <!-- FAQ -->
+                <h2 id="faq">❓ FAQ</h2>
+                <p>Find answers to frequently asked questions.</p>
+
+                <h3>Is Friday AI free?</h3>
+                <p>Friday AI offers a free 14-day trial. After that, plans start at $49/month for individuals.</p>
+
+                <h3>Can I use Friday AI for commercial projects?</h3>
+                <p>Yes! All plans include commercial use rights for individual plans. Enterprise plans include commercial rights.</p>
+
+                <h3>What programming languages does Friday AI support?</h3>
+                <p>Friday AI supports development assistance in 50+ programming languages including Python, JavaScript, Go, Rust, C++, Java, etc.</p>
+
+                <h3>Is my code secure with Friday AI?</h3>
+                <p>Absolutely. Your code is never shared with third parties. We use secure encryption and don't store your code.</p>
+
+                <h3>Can I cancel my subscription anytime?</h3>
+                <p>Yes, you can cancel your subscription at any time. No contracts or long-term commitments.</p>
+
+                <h3>Does Friday AI support team collaboration?</h3>
+                <p>Yes! The Professional and Enterprise plans include team collaboration features with shared projects and team management.</p>
+
+                <!-- Support -->
+                <h2 id="support">🆘 Support</h2>
+                <p>Get help with Friday AI from our support team.</p>
+
+                <h3>Support Channels</h3>
+                <ul>
+                    <li><strong>Email:</strong> support@friday.ai</li>
+                    <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+                    <li><strong>Live Chat:</strong> Available 24/7</li>
+                    <li><strong>Documentation:</strong> https://docs.friday.ai</li>
+                </ul>
+
+                <h3>Response Times</h3>
+                <ul>
+                    <li>Email: Within 24 hours</li>
+                    <li>Live Chat: Real-time</li>
+                    <li>Phone: Within 30 minutes</li>
+                    <li>Priority Support: <span class="badge badge-primary">Pro & Enterprise</span></li>
+                </ul>
+
+                <h3>Documentation Resources</h3>
+                <ul>
+                    <li>Getting Started Guide</li>
+                    <li>API Documentation</li>
+                    <li>Video Tutorials</li>
+                    <li>Community Forum</li>
+                    <li>Code Examples</li>
+                    <li>Best Practices Guide</li>
+                </ul>
+
+                <!-- Thank You -->
+                <div class="quick-start" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 3rem; border-radius: 16px; margin: 2rem 0;">
+                    <h2 style="color: white; margin-bottom: 1rem;">📚 More Documentation</h2>
+                    <p style="color: rgba(255, 255, 255, 0.95); margin-bottom: 1rem;">Visit our documentation portal for more guides and tutorials.</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="https://docs.friday.ai" style="color: white; text-decoration: none; font-weight: 600; display: inline-block; padding: 1rem 2rem; background: white; color: #6366f1; border-radius: 8px; transition: all 0.3s ease;">
+                            Visit Documentation
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer" style="margin-top: 4rem;">
+        <div class="container">
+            <div class="footer-content" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr); gap: 3rem; margin-bottom: 3rem;">
+                <div class="footer-section">
+                    <h3 style="color: white;">Friday AI</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8);">Your complete AI development assistant with 77 integrated tools.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 style="color: white;">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" style="color: rgba(255, 255, 255, 0.8);">Features</a></li>
+                        <li><a href="pricing.html" style="color: rgba(255, 255, 255, 0.8);">Pricing</a></li>
+                        <li><a href="documentation.html" style="color: rgba(255, 255, 255, 0.8);">Documentation</a></li>
+                        <li><a href="contact.html" style="color: rgba(255, 255, 255, 0.8);">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 style="color: white;">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/friday-ai/friday" style="color: rgba(255, 255, 255, 0.8);">GitHub</a></li>
+                        <li><a href="https://twitter.com/fridayai" style="color: rgba(255, 255, 255, 0.8);">Twitter</a></li>
+                        <li><a href="https://linkedin.com/company/friday-ai" style="color: rgba(255, 255, 255, 0.8);">LinkedIn</a></li>
+                        <li><a href="https://youtube.com/@fridayai" style="color: rgba(255, 255, 255, 0.8);">YouTube</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 style="color: white;">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Privacy Policy</a></li>
+                        <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Terms of Service</a></li>
+                        <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">Cookie Policy</a></li>
+                        <li><a href="#" style="color: rgba(255, 255, 255, 0.8);">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <p style="color: rgba(255, 255, 255, 0.8); margin: 0.5rem 0;">&copy; 2026 Friday AI. All rights reserved.</p>
+                <p style="color: rgba(255, 255, 255, 0.8); margin: 0.5rem 0;">Made with ❤️ by the Friday AI team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}</script></body>
+</html>
