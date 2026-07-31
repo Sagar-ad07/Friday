@@ -216,17 +216,7 @@ func (s *Server) setupRouter() {
 	s.router.POST("/api/signup", s.SignupHandler)
 	s.router.GET("/api/users", s.UsersListHandler)
 
-  // Manual trade ticket (human-driven order entry; cap-safe).
-  s.router.GET("/trade", s.ManualTradePage())
-  s.router.GET("/api/trade/account", s.ManualAccount())
-  s.router.GET("/api/trade/tick/:symbol", s.ManualTick())
-  s.router.GET("/api/trade/positions", s.ManualPositions())
-  s.router.POST("/api/trade/order", s.ManualOrder())
-  s.router.POST("/api/trade/propose", s.ManualPropose())
-  s.router.POST("/api/trade/rustdesk/execute", s.ExecuteRustDeskTrade())
-  s.router.POST("/api/trade/rustdesk_contract/confirm", s.ExecuteRustDeskContractTrade())
-
-  // Static files (Web UI) — handled by main.go mountWebUI
+	// Static files (Web UI) — handled by main.go mountWebUI
 }
 
 // Router returns the gin engine, allowing external code to mount routes.
