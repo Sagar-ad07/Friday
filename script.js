@@ -27,36 +27,43 @@ function handleContactSubmit(event) {
     
     const form = event.target;
     const formData = new FormData(form);
-    
-    // Simulate form submission
     const submitButton = form.querySelector('.submit-button');
     const originalText = submitButton.textContent;
     submitButton.textContent = 'Sending...';
     submitButton.disabled = true;
     
-    // Simulate API call
-    setTimeout(() => {
-        // Hide form and show success message
-        form.style.display = 'none';
-        const successMessage = document.getElementById('formSuccess');
-        if (successMessage) {
-            successMessage.style.display = 'block';
+    const action = form.getAttribute('action');
+    fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
         }
-        
-        // Reset button
-        submitButton.textContent = originalText;
+    })
+    .then(response => {
+        if (response.ok) {
+            form.style.display = 'none';
+            const successMessage = document.getElementById('formSuccess');
+            if (successMessage) {
+                successMessage.style.display = 'block';
+            }
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                form.reset();
+                form.style.display = 'block';
+                successMessage.style.display = 'none';
+            }, 5000);
+        } else {
+            submitButton.textContent = 'Error - Try Again';
+            submitButton.disabled = false;
+        }
+    })
+    .catch(error => {
+        submitButton.textContent = 'Error - Try Again';
         submitButton.disabled = false;
-        
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-        
-        // Reset form after delay
-        setTimeout(() => {
-            form.reset();
-            form.style.display = 'block';
-            successMessage.style.display = 'none';
-        }, 5000);
-    }, 1500);
+    });
 }
 
 // Navbar scroll effect

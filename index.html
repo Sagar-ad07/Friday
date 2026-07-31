@@ -672,7 +672,9 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)" action="https://formspree.io/f/your-form-id" method="POST">
+                        <input type="hidden" name="_subject" value="New contact from Friday AI website">
+                        <input type="hidden" name="_next" value="https://Sagar-ad07.github.io/Friday/thank-you.html">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
