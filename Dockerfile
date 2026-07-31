@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apk add --no-cache git build-base
 
-COPY go.mod go.sum ./
+COPY go/go.mod go/go.sum ./
 RUN go mod download
 
 COPY go/friday ./go/friday
