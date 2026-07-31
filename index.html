@@ -3,767 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Friday AI - Complete AI Agent System with 77 Integrated Tools, Real AI Intelligence, Voice System, and Trading Capability">
-    <meta name="keywords" content="AI agent, development assistant, AI tools, automation, productivity, programming, software development">
-    <title>Friday AI - Complete AI Agent System</title>
+    <title>Friday AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h1>Friday AI</h1>
+                <i class="fas fa-robot"></i>
+                <span>Friday AI</span>
             </div>
             <div class="nav-links">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#tools" class="nav-link">Tools</a>
-                <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="#documentation" class="nav-link">Documentation</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="https://github.com/friday-ai/friday" target="_blank" class="nav-link github">GitHub</a>
+                <a href="#home" class="nav-link active" data-section="home">Home</a>
+                <a href="#features" class="nav-link" data-section="features">Features</a>
+                <a href="#tools" class="nav-link" data-section="tools">Tools</a>
+                <a href="#pricing" class="nav-link" data-section="pricing">Pricing</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
             </div>
-            <button class="nav-cta" onclick="showPricing()">Get Started</button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="badge-dot"></span>
-                <span class="badge-text">NEW</span>
+                <span>NEW</span>
             </div>
-            <h1 class="hero-title">Your Complete AI Development Assistant</h1>
-            <p class="hero-subtitle">
-                77 integrated tools, real AI intelligence, voice system, and trading capability 
-                in one powerful platform. Save time, improve quality, ship faster.
-            </p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">77</div>
-                    <div class="stat-label">Integrated Tools</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">22</div>
-                    <div class="stat-label">Languages</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">AI-Powered</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">Real</div>
-                    <div class="stat-label">AI Engine</div>
-                </div>
-            </div>
-            <div class="hero-buttons">
-                <button class="hero-cta primary" onclick="showPricing()">
-                    Start Free Trial
+            <h1 class="hero-title">Friday AI</h1>
+            <p class="hero-subtitle">77 tools. Real AI. Voice. Trading. One platform.</p>
+            <div class="hero-actions">
+                <button class="btn-primary" onclick="showPricing()">
+                    <i class="fas fa-rocket"></i> Start Free Trial
                 </button>
-                <button class="hero-cta secondary" onclick="scrollToSection('features')">
-                    Explore Features
+                <button class="btn-secondary" onclick="scrollToSection('features')">
+                    <i class="fas fa-eye"></i> Explore
                 </button>
             </div>
-            <div class="hero-visual">
-                <div class="friday-ui">
-                    <div class="ui-header">
-                        <div class="ui-tabs">
-                            <span class="ui-tab active">Chat</span>
-                            <span class="ui-tab">Tools</span>
-                            <span class="ui-tab">Trading</span>
-                        </div>
-                        <div class="ui-settings">
-                            <div class="ui-setting"></div>
-                            <div class="ui-setting"></div>
-                        </div>
-                    </div>
-                    <div class="ui-content">
-                        <div class="ai-message">
-                            <div class="ai-avatar">🤖</div>
-                            <div class="ai-text">
-                                <p>Hello! I'm Friday AI. I can help you with development tasks, answer questions, create content, and much more. What would you like to work on?</p>
-                            </div>
-                        </div>
-                        <div class="user-message">
-                            <div class="user-text">
-                                <p>Help me create a new Python function for data analysis</p>
-                            </div>
-                        </div>
-                        <div class="ai-message">
-                            <div class="ai-avatar">🤖</div>
-                            <div class="ai-text">
-                                <p>I'd be happy to help! Here's a Python function for data analysis:</p>
-                                <div class="code-block">
-                                    <pre>def analyze_data(data):<br>    # Your analysis code here</br>    pass</pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui-input">
-                        <input type="text" placeholder="Ask Friday anything...">
-                        <button class="send-btn">✓</button>
-                    </div>
-                </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <i class="fas fa-tools"></i>
+                <strong>77</strong> Tools
+            </div>
+            <div class="stat">
+                <i class="fas fa-language"></i>
+                <strong>22</strong> Languages
+            </div>
+            <div class="stat">
+                <i class="fas fa-bolt"></i>
+                <strong>Real</strong> AI
             </div>
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="problem-section">
-        <div class="container">
-            <h2 class="section-title">The Development Challenge</h2>
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <div class="problem-icon">⚡</div>
-                    <h3>Multiple Tools Required</h3>
-                    <p>Most developers use 10+ separate tools. Friday replaces them all with 77 integrated tools in one platform.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🎯</div>
-                    <h3>Inconsistent Results</h3>
-                    <p>Traditional AI tools give generic answers. Friday uses real AI for context-aware, specific results.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🎧</div>
-                    <h3>Manual Processes</h3>
-                    <p>50% of development time is spent on repetitive tasks. Friday automates them with AI.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">📊</div>
-                    <h3>Quality Control</h3>
-                    <p>Human error is costly. Friday catches errors before deployment with built-in checks.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="solution-section">
-        <div class="container">
-            <div class="solution-content">
-                <h2 class="section-title">Friday AI - The Solution</h2>
-                <p class="solution-text">
-                    Friday AI is a complete development assistant that combines real AI intelligence 
-                    with 77 integrated tools. It understands your context, anticipates your needs, 
-                    and executes complex tasks seamlessly.
-                </p>
-                <div class="solution-features">
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">Real AI engine (not templates)</div>
-                    </div>
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">77 integrated tools in one platform</div>
-                    </div>
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">Voice command support</div>
-                    </div>
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">Multi-language capabilities</div>
-                    </div>
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">Trading system integration</div>
-                    </div>
-                    <div class="solution-feature">
-                        <div class="feature-check">✓</div>
-                        <div class="feature-text">Self-healing development</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Powerful Features</h2>
-                <p class="section-subtitle">Everything you need in one AI-powered platform</p>
+                <h2><i class="fas fa-star"></i> Features</h2>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>Real AI Intelligence</h3>
-                    <p>Powered by advanced AI models, Friday understands context and delivers accurate, relevant responses. Not templates - real intelligence.</p>
-                    <ul class="feature-list">
-                        <li>Context-aware responses</li>
-                        <li>Multi-turn conversations</li>
-                        <li>Complex task understanding</li>
-                        <li>Adaptive learning</li>
-                    </ul>
+            <div class="features-tabs">
+                <button class="feature-tab active" data-tab="ai" onclick="switchFeatureTab('ai')">
+                    <i class="fas fa-brain"></i> AI Intelligence
+                </button>
+                <button class="feature-tab" data-tab="voice" onclick="switchFeatureTab('voice')">
+                    <i class="fas fa-microphone"></i> Voice
+                </button>
+                <button class="feature-tab" data-tab="trading" onclick="switchFeatureTab('trading')">
+                    <i class="fas fa-chart-line"></i> Trading
+                </button>
+                <button class="feature-tab" data-tab="tools" onclick="switchFeatureTab('tools')">
+                    <i class="fas fa-cube"></i> Tools
+                </button>
+            </div>
+            <div class="feature-tab-content active" id="tab-ai">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-robot"></i></div>
+                        <h3>Real AI</h3>
+                        <p>Context-aware, not templates. Multi-turn conversations that understand you.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Context-aware responses</li>
+                                <li><i class="fas fa-check"></i> Multi-turn conversations</li>
+                                <li><i class="fas fa-check"></i> Adaptive learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Self-Healing</h3>
+                        <p>Detects and fixes issues automatically. Never break your workflow.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Auto error detection</li>
+                                <li><i class="fas fa-check"></i> Smart recovery</li>
+                                <li><i class="fas fa-check"></i> Continuous optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                        <h3>Checkpoints</h3>
+                        <p>Save progress, rollback anytime. Never lose your work.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Instant checkpoints</li>
+                                <li><i class="fas fa-check"></i> One-click rollback</li>
+                                <li><i class="fas fa-check"></i> Change tracking</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎙️</div>
-                    <h3>Voice System</h3>
-                    <p>Control Friday with your voice. Perfect for hands-free development and accessibility.</p>
-                    <ul class="feature-list">
-                        <li>Voice command support</li>
-                        <li>Natural language interaction</li>
-                        <li>Voice feedback</li>
-                        <li>Multi-language voice</li>
-                    </ul>
+            </div>
+            <div class="feature-tab-content" id="tab-voice">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-microphone"></i></div>
+                        <h3>Voice Control</h3>
+                        <p>Hands-free development. Natural language interaction.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Voice commands</li>
+                                <li><i class="fas fa-check"></i> 22 languages</li>
+                                <li><i class="fas fa-check"></i> Feedback system</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💱</div>
-                    <h3>Trading System</h3>
-                    <p>Integrate AI with trading for automated analysis and execution capabilities.</p>
-                    <ul class="feature-list">
-                        <li>Real-time market data</li>
-                        <li>AI-powered trading signals</li>
-                        <li>Automated execution</li>
-                        <li>Risk management</li>
-                    </ul>
+            </div>
+            <div class="feature-tab-content" id="tab-trading">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <h3>Trading Engine</h3>
+                        <p>AI-powered signals, automated execution, risk management.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Real-time data</li>
+                                <li><i class="fas fa-check"></i> AI signals</li>
+                                <li><i class="fas fa-check"></i> Risk management</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Multi-Language Support</h3>
-                    <p>Speak and work in your language. Friday supports 22 languages out of the box.</p>
-                    <ul class="feature-list">
-                        <li>22 languages supported</li>
-                        <li>Bilingual capabilities</li>
-                        <li>Translation features</li>
-                        <li>Localization ready</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>77 Integrated Tools</h3>
-                    <p>Everything from coding assistance to file management, all in one place.</p>
-                    <ul class="feature-list">
-                        <li>Development tools</li>
-                        <li>File management</li>
-                        <li>Data processing</li>
-                        <li>Communication tools</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Self-Healing System</h3>
-                    <p>Friday detects and fixes issues automatically. Never break your workflow.</p>
-                    <ul class="feature-list">
-                        <li>Automatic error detection</li>
-                        <li>Self-correction capability</li>
-                        <li>Smart recovery</li>
-                        <li>Continuous optimization</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Development Checkpoints</h3>
-                    <p>Save progress and rollback anytime. Never lose your work.</p>
-                    <ul class="feature-list">
-                        <li>Instant checkpoints</li>
-                        <li>One-click rollback</li>
-                        <li>Version control</li>
-                        <li>Change tracking</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Optimized for speed. Get results in milliseconds, not minutes.</p>
-                    <ul class="feature-list">
-                        <li>Instant responses</li>
-                        <li>Real-time processing</li>
-                        <li>Low latency</li>
-                        <li>Scalable architecture</li>
-                    </ul>
+            </div>
+            <div class="feature-tab-content" id="tab-tools">
+                <div class="feature-cards">
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3>Dev Tools</h3>
+                        <p>Code generator, reviewer, API builder, debugger.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Code Generator</li>
+                                <li><i class="fas fa-check"></i> Code Reviewer</li>
+                                <li><i class="fas fa-check"></i> API Builder</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tap-card" onclick="this.classList.toggle('tapped')">
+                        <div class="card-icon"><i class="fas fa-folder"></i></div>
+                        <h3>File Tools</h3>
+                        <p>Organize, merge, convert, format files.</p>
+                        <span class="tap-hint"><i class="fas fa-hand-pointer"></i> Tap for details</span>
+                        <div class="card-detail" style="display:none">
+                            <ul>
+                                <li><i class="fas fa-check"></i> File Organizer</li>
+                                <li><i class="fas fa-check"></i> File Converter</li>
+                                <li><i class="fas fa-check"></i> Format Tools</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tools Section -->
     <section id="tools" class="tools-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">77 Integrated Tools</h2>
-                <p class="section-subtitle">Complete development suite at your fingertips</p>
+                <h2><i class="fas fa-cube"></i> Tools</h2>
+                <p>77 integrated tools. Tap to browse.</p>
             </div>
-            <div class="tools-grid">
-                <div class="tool-category">
-                    <h3 class="tool-category-title">🌐 Development Tools</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">Code Generator</span>
-                        <span class="tool-tag">Code Reviewer</span>
-                        <span class="tool-tag">API Builder</span>
-                        <span class="tool-tag">Database Designer</span>
-                        <span class="tool-tag">ORM Generator</span>
-                        <span class="tool-tag">API Tester</span>
-                        <span class="tool-tag">WebSocket Debugger</span>
-                        <span class="tool-tag">REST Client</span>
-                        <span class="tool-tag">GraphQL Client</span>
-                        <span class="tool-tag">gRPC Client</span>
-                        <span class="tool-tag">API Documentation</span>
-                        <span class="tool-tag">Webhook Tester</span>
-                    </div>
+            <div class="tools-categories">
+                <button class="tool-cat active" onclick="switchToolCat(this, 'dev')">
+                    <i class="fas fa-code"></i> Dev
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'file')">
+                    <i class="fas fa-folder"></i> Files
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'test')">
+                    <i class="fas fa-vial"></i> Test
+                </button>
+                <button class="tool-cat" onclick="switchToolCat(this, 'comm')">
+                    <i class="fas fa-comments"></i> Comms
+                </button>
+            </div>
+            <div class="tool-grid" id="tool-grid-dev">
+                <div class="tool-item" onclick="showToast('Code Generator - coming soon')">
+                    <i class="fas fa-magic"></i>
+                    <span>Generator</span>
                 </div>
-                <div class="tool-category">
-                    <h3 class="tool-category-title">📁 File Management</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">File Organizer</span>
-                        <span class="tool-tag">Duplicate Finder</span>
-                        <span class="tool-tag">File Merger</span>
-                        <span class="tool-tag">File Splitter</span>
-                        <span class="tool-tag">PDF Processor</span>
-                        <span class="tool-tag">Image Converter</span>
-                        <span class="tool-tag">Video Converter</span>
-                        <span class="tool-tag">Document Converter</span>
-                        <span class="tool-tag">Archive Manager</span>
-                        <span class="tool-tag">Text Editor</span>
-                        <span class="tool-tag">Markdown Editor</span>
-                        <span class="tool-tag">Syntax Highlighter</span>
-                    </div>
+                <div class="tool-item" onclick="showToast('Code Reviewer - coming soon')">
+                    <i class="fas fa-search"></i>
+                    <span>Reviewer</span>
                 </div>
-                <div class="tool-category">
-                    <h3 class="tool-category-title">🧪 Testing Tools</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">Unit Test Generator</span>
-                        <span class="tool-tag">Integration Test</span>
-                        <span class="tool-tag">Performance Test</span>
-                        <span class="tool-tag">Security Scanner</span>
-                        <span class="tool-tag">Code Coverage</span>
-                        <span class="tool-tag">Load Tester</span>
-                        <span class="tool-tag">API Tester</span>
-                        <span class="tool-tag">Mock Server</span>
-                        <span class="tool-tag">Stub Generator</span>
-                        <span class="tool-tag">Test Runner</span>
-                        <span class="tool-tag">Test Coverage</span>
-                        <span class="tool-tag">Regression Test</span>
-                    </div>
+                <div class="tool-item" onclick="showToast('API Builder - coming soon')">
+                    <i class="fas fa-plug"></i>
+                    <span>API Builder</span>
                 </div>
-                <div class="tool-category">
-                    <h3 class="tool-category-title">📊 Analytics Tools</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">Data Analyzer</span>
-                        <span class="tool-tag">Statistics Calculator</span>
-                        <span class="tool-tag">Data Visualizer</span>
-                        <span class="tool-tag">Report Generator</span>
-                        <span class="tool-tag">Chart Creator</span>
-                        <span class="tool-tag">Table Converter</span>
-                        <span class="tool-tag">Data Cleaner</span>
-                        <span class="tool-tag">Data Formatter</span>
-                        <span class="tool-tag">Query Builder</span>
-                        <span class="tool-tag">SQL Generator</span>
-                        <span class="tool-tag">JSON Validator</span>
-                        <span class="tool-tag">CSV Parser</span>
-                    </div>
+                <div class="tool-item" onclick="showToast('Git Helper - coming soon')">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git Helper</span>
                 </div>
-                <div class="tool-category">
-                    <h3 class="tool-category-title">🛠️ Development Tools</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">Git Helper</span>
-                        <span class="tool-tag">Commit Generator</span>
-                        <span class="tool-tag">Branch Manager</span>
-                        <span class="tool-tag">Pull Request</span>
-                        <span class="tool-tag">Code Formatter</span>
-                        <span class="tool-tag">Linter</span>
-                        <span class="tool-tag">Refactoring Tool</span>
-                        <span class="tool-tag">Code Search</span>
-                        <span class="tool-tag">Dependency Finder</span>
-                        <span class="tool-tag">Version Manager</span>
-                        <span class="tool-tag">Build Tool</span>
-                        <span class="tool-tag">Package Manager</span>
-                    </div>
-                </div>
-                <div class="tool-category">
-                    <h3 class="tool-category-title">💬 Communication Tools</h3>
-                    <div class="tools-list">
-                        <span class="tool-tag">Email Client</span>
-                        <span class="tool-tag">Chat Assistant</span>
-                        <span class="tool-tag">Meeting Notes</span>
-                        <span class="tool-tag">Document Sharing</span>
-                        <span class="tool-tag">Video Conferencing</span>
-                        <span class="tool-tag">Team Chat</span>
-                        <span class="tool-tag">Project Updates</span>
-                        <span class="tool-tag">Task Management</span>
-                        <span class="tool-tag">Feedback System</span>
-                        <span class="tool-tag">Knowledge Base</span>
-                        <span class="tool-tag">FAQ Generator</span>
-                        <span class="tool-tag">Support Chat</span>
-                    </div>
+                <div class="tool-item" onclick="showToast('Code Formatter - coming soon')">
+                    <i class="fas fa-indent"></i>
+                    <span>Formatter</span>
                 </div>
             </div>
-            <div class="tools-footer">
-                <p>Plus 11 more categories of tools including security, deployment, backup, and more. <a href="#contact">Contact us</a> for complete tool list.</p>
+            <div class="tool-grid" id="tool-grid-file" style="display:none">
+                <div class="tool-item" onclick="showToast('File Organizer - coming soon')">
+                    <i class="fas fa-sort"></i>
+                    <span>Organizer</span>
+                </div>
+                <div class="tool-item" onclick="showToast('File Converter - coming soon')">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Converter</span>
+                </div>
+                <div class="tool-item" onclick="showToast('PDF Processor - coming soon')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Tools</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Text Editor - coming soon')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Editor</span>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Use Cases Section -->
-    <section class="usecases-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Perfect For Everyone</h2>
-                <p class="section-subtitle">Whether you're an individual developer or enterprise team</p>
+            <div class="tool-grid" id="tool-grid-test" style="display:none">
+                <div class="tool-item" onclick="showToast('Test Generator - coming soon')">
+                    <i class="fas fa-vial"></i>
+                    <span>Generator</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Security Scanner - coming soon')">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </div>
+                <div class="tool-item" onclick="showToast('Load Tester - coming soon')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Load Test</span>
+                </div>
             </div>
-            <div class="usecases-grid">
-                <div class="usecase-card">
-                    <div class="usecase-badge">👨‍💻</div>
-                    <h3>Individual Developers</h3>
-                    <p>Save 50% of your development time. Focus on what matters - building great software.</p>
-                    <ul class="usecase-features">
-                        <li>• Get 77 tools for one low price</li>
-                        <li>• Never start from scratch</li>
-                        <li>• Get AI assistance 24/7</li>
-                        <li>• Reduce errors by 90%</li>
-                    </ul>
+            <div class="tool-grid" id="tool-grid-comm" style="display:none">
+                <div class="tool-item" onclick="showToast('Chat Assistant - coming soon')">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Chat</span>
                 </div>
-                <div class="usecase-card">
-                    <div class="usecase-badge">👨‍💼</div>
-                    <h3>Development Teams</h3>
-                    <p>Ship faster with AI-powered development. No more waiting on teammates.</p>
-                    <ul class="usecase-features">
-                        <li>• Standardize your workflow</li>
-                        <li>• Reduce code review time</li>
-                        <li>• Automated testing</li>
-                        <li>• Shared AI knowledge base</li>
-                    </ul>
+                <div class="tool-item" onclick="showToast('Meeting Notes - coming soon')">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Meetings</span>
                 </div>
-                <div class="usecase-card">
-                    <div class="usecase-badge">🏢</div>
-                    <h3>Enterprise Teams</h3>
-                    <p>Scale development with AI. Train your team with Friday's capabilities.</p>
-                    <ul class="usecase-features">
-                        <li>• Custom AI training</li>
-                        <li>• Security integration</li>
-                        <li>• Enterprise deployment</li>
-                        <li>• Dedicated support</li>
-                    </ul>
-                </div>
-                <div class="usecase-card">
-                    <div class="usecase-badge">🎓</div>
-                    <h3>Students & Learners</h3>
-                    <p>Master development with an AI tutor that explains everything.</p>
-                    <ul class="usecase-features">
-                        <li>• Learn as you code</li>
-                        <li>• Instant feedback</li>
-                        <li>• Step-by-step guidance</li>
-                        <li>• Project templates</li>
-                    </ul>
+                <div class="tool-item" onclick="showToast('Feedback System - coming soon')">
+                    <i class="fas fa-star"></i>
+                    <span>Feedback</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
     <section id="pricing" class="pricing-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Simple, Transparent Pricing</h2>
-                <p class="section-subtitle">Choose the plan that fits your needs</p>
+                <h2><i class="fas fa-tags"></i> Pricing</h2>
+                <p>Simple, transparent. Free trial included.</p>
             </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
+            <div class="pricing-cards">
+                <div class="pricing-card" onclick="showPricing('individual')">
                     <div class="pricing-header">
+                        <i class="fas fa-user"></i>
                         <h3>Individual</h3>
-                        <div class="pricing-price">$49<span class="pricing-period">/month</span></div>
-                        <p class="pricing-description">Perfect for developers who need powerful AI assistance</p>
+                        <div class="price">$49<span>/mo</span></div>
                     </div>
                     <ul class="pricing-features">
-                        <li>✓ Access to all 77 tools</li>
-                        <li>✓ Real AI intelligence</li>
-                        <li>✓ Voice commands</li>
-                        <li>✓ 22 language support</li>
-                        <li>✓ Standard support</li>
-                        <li>✓ Daily optimization</li>
-                        <li>✓ Weekly updates</li>
-                        <li>✓ Email support</li>
+                        <li><i class="fas fa-check"></i> 77 tools</li>
+                        <li><i class="fas fa-check"></i> Real AI</li>
+                        <li><i class="fas fa-check"></i> Voice commands</li>
+                        <li><i class="fas fa-check"></i> 22 languages</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
                     </ul>
-                    <button class="pricing-cta" onclick="showPricing('individual')">Get Started</button>
+                    <button class="btn-primary full-width">
+                        <i class="fas fa-rocket"></i> Start Trial
+                    </button>
                 </div>
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">POPULAR</div>
+                <div class="pricing-card featured" onclick="showPricing('professional')">
+                    <div class="popular-badge"><i class="fas fa-fire"></i> Popular</div>
                     <div class="pricing-header">
+                        <i class="fas fa-users"></i>
                         <h3>Professional</h3>
-                        <div class="pricing-price">$149<span class="pricing-period">/month</span></div>
-                        <p class="pricing-description">For teams and serious developers</p>
+                        <div class="price">$149<span>/mo</span></div>
                     </div>
                     <ul class="pricing-features">
-                        <li>✓ Everything in Individual</li>
-                        <li>✓ Team collaboration</li>
-                        <li>✓ Priority support</li>
-                        <li>✓ API access</li>
-                        <li>✓ Custom integrations</li>
-                        <li>✓ Advanced analytics</li>
-                        <li>✓ Priority AI requests</li>
-                        <li>✓ 24/7 phone support</li>
-                        <li>✓ Custom training</li>
+                        <li><i class="fas fa-check"></i> Everything in Individual</li>
+                        <li><i class="fas fa-check"></i> Team collaboration</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Custom training</li>
                     </ul>
-                    <button class="pricing-cta primary" onclick="showPricing('professional')">Get Started</button>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Enterprise</h3>
-                        <div class="pricing-price">Custom</div>
-                        <p class="pricing-description">For large organizations with specific needs</p>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>✓ Everything in Professional</li>
-                        <li>✓ Unlimited users</li>
-                        <li>✓ Dedicated support</li>
-                        <li>✓ Custom development</li>
-                        <li>✓ On-premise deployment</li>
-                        <li>✓ SLA guarantees</li>
-                        <li>✓ Custom AI training</li>
-                        <li>✓ Legal compliance</li>
-                        <li>✓ Account manager</li>
-                        <li>✓ Audit logs</li>
-                        <li>✓ Custom integrations</li>
-                        <li>✓ Priority development</li>
-                    </ul>
-                    <button class="pricing-cta" onclick="showPricing('enterprise')">Contact Sales</button>
-                </div>
-            </div>
-            <div class="pricing-note">
-                <p>All plans include free 14-day trial. Cancel anytime. No hidden fees.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">50K+</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">10K+</div>
-                    <div class="stat-label">Projects Built</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">15K+</div>
-                    <div class="stat-label">5-Star Reviews</div>
+                    <button class="btn-primary full-width">
+                        <i class="fas fa-rocket"></i> Start Trial
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What Users Say</h2>
-                <p class="section-subtitle">Join thousands of satisfied developers</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Friday AI has completely transformed my workflow. I save 10+ hours every week on development tasks that used to take me all day."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">JD</div>
-                        <div class="author-info">
-                            <div class="author-name">John Davis</div>
-                            <div class="author-role">Senior Developer, TechCorp</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"The voice system is incredible. I can work hands-free while reviewing code. The AI understands context perfectly."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SM</div>
-                        <div class="author-info">
-                            <div class="author-name">Sarah Miller</div>
-                            <div class="author-role">CTO, StartupX</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"As a team of 50 developers, Friday has saved us countless hours. The 77 tools are incredibly useful and well-integrated."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MK</div>
-                        <div class="author-info">
-                            <div class="author-name">Mike Kowalski</div>
-                            <div class="author-role">Tech Lead, DevStudio</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-title">Ready to Transform Your Development?</h2>
-            <p class="cta-text">Join 50,000+ developers who are building faster and smarter with Friday AI</p>
-            <div class="cta-buttons">
-                <button class="cta-button primary" onclick="showPricing()">Start Free Trial</button>
-                <button class="cta-button secondary" onclick="scrollToSection('documentation')">View Documentation</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h2 class="contact-title">Get In Touch</h2>
-                    <p class="contact-text">Have questions? We're here to help you succeed.</p>
-                    <div class="contact-details">
-                        <div class="contact-detail">
-                            <div class="contact-icon">📧</div>
-                            <div class="contact-text">
-                                <div class="contact-label">Email</div>
-                                <div class="contact-value">hello@friday.ai</div>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">📱</div>
-                            <div class="contact-text">
-                                <div class="contact-label">Phone</div>
-                                <div class="contact-value">+1 (555) 123-4567</div>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">📍</div>
-                            <div class="contact-text">
-                                <div class="contact-label">Location</div>
-                                <div class="contact-value">San Francisco, CA</div>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-icon">⏰</div>
-                            <div class="contact-text">
-                                <div class="contact-label">Response Time</div>
-                                <div class="contact-value">Within 24 hours</div>
-                            </div>
-                        </div>
+            <div class="section-header">
+                <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+            </div>
+            <form id="contactForm" onsubmit="return handleContactSubmit(event)" action="https://formspree.io/f/mwvgjygb" method="POST">
+                <input type="hidden" name="_subject" value="New contact from Friday AI">
+                <input type="hidden" name="_next" value="https://Sagar-ad07.github.io/Friday/thank-you.html">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cname"><i class="fas fa-user"></i> Name</label>
+                        <input type="text" id="cname" name="name" required placeholder="Your name">
                     </div>
-                    <div class="contact-social">
-                        <a href="https://twitter.com/friday_ai" class="social-link" title="Twitter">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                        <a href="https://github.com/friday-ai" class="social-link" title="GitHub">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                        <a href="https://linkedin.com/company/friday-ai" class="social-link" title="LinkedIn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                        <a href="https://youtube.com/@friday-ai" class="social-link" title="YouTube">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </a>
+                    <div class="form-group">
+                        <label for="cemail"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="cemail" name="email" required placeholder="you@email.com">
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm" onsubmit="handleContactSubmit(event)" action="https://formspree.io/f/mwvgjygb" method="POST">
-                        <input type="hidden" name="_subject" value="New contact from Friday AI website">
-                        <input type="hidden" name="_next" value="https://Sagar-ad07.github.io/Friday/thank-you.html">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                        <div class="form-group">
-                            <label for="interest">Interest</label>
-                            <select id="interest" name="interest">
-                                <option value="individual">Individual Plan</option>
-                                <option value="professional">Professional Plan</option>
-                                <option value="enterprise">Enterprise Plan</option>
-                                <option value="support">Technical Support</option>
-                                <option value="partnership">Partnership</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Send Message</button>
-                    </form>
-                    <div id="formSuccess" class="form-success" style="display: none;">
-                        <div class="success-icon">✓</div>
-                        <h3>Thank You!</h3>
-                        <p>Your message has been sent. We'll get back to you within 24 hours.</p>
-                    </div>
+                <div class="form-group">
+                    <label for="cinterest"><i class="fas fa-flag"></i> Interest</label>
+                    <select id="cinterest" name="interest">
+                        <option value="individual">Individual Plan</option>
+                        <option value="professional">Professional Plan</option>
+                        <option value="enterprise">Enterprise Plan</option>
+                        <option value="support">Technical Support</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label for="cmessage"><i class="fas fa-comment"></i> Message</label>
+                    <textarea id="cmessage" name="message" rows="4" required placeholder="Tell us what you need..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+            <div id="formSuccess" class="form-success" style="display:none">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank You!</h3>
+                <p>Message sent. We'll respond within 24 hours.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Friday AI</h3>
-                    <p>Your complete AI development assistant with 77 integrated tools.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <i class="fas fa-robot"></i>
+                    <span>Friday AI</span>
+                    <p>Your complete AI development assistant.</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-links">
                     <h4>Product</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#documentation">Documentation</a></li>
-                    </ul>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="documentation.html">Docs</a>
                 </div>
-                <div class="footer-section">
+                <div class="footer-links">
                     <h4>Company</h4>
-                    <ul class="footer-links">
-                        <li><a href="documentation.html">About</a></li>
-                        <li><a href="#contact">Blog</a></li>
-                        <li><a href="#contact">Careers</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="documentation.html">Support</a></li>
-                        <li><a href="#contact">Privacy Policy</a></li>
-                        <li><a href="#contact">Terms of Service</a></li>
-                        <li><a href="documentation.html">API Documentation</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="footer-social">
-                        <a href="https://twitter.com/friday_ai" class="social-link">Twitter</a>
-                        <a href="https://github.com/friday-ai" class="social-link">GitHub</a>
-                        <a href="https://linkedin.com/company/friday-ai" class="social-link">LinkedIn</a>
-                        <a href="https://youtube.com/@friday-ai" class="social-link">YouTube</a>
-                    </div>
+                    <a href="https://github.com/friday-ai" target="_blank">GitHub</a>
+                    <a href="#contact">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Friday AI. All rights reserved.</p>
-                <p>Made with ❤️ by the Friday AI team</p>
             </div>
         </div>
     </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
 
     <script src="script.js"></script>
 </body>
