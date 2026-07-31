@@ -163,11 +163,36 @@
             cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
         .chat-input button:active { transform: scale(0.95); }
+        .trade-buttons { display: flex; gap: 8px; margin-bottom: 16px; }
+        .trade-btn {
+            flex: 1; padding: 12px; border: none; border-radius: var(--radius-sm);
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            transition: all 0.2s;
+        }
+        .trade-btn:active { transform: scale(0.95); }
+        .trade-btn.buy { background: rgba(16,185,129,0.2); color: var(--accent); border: 1px solid rgba(16,185,129,0.3); }
+        .trade-btn.buy:hover { background: rgba(16,185,129,0.3); }
+        .trade-btn.sell { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+        .trade-btn.sell:hover { background: rgba(239,68,68,0.3); }
+        .trade-btn.close { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); }
+        .trade-btn.close:hover { background: rgba(255,255,255,0.1); }
+        .trade-settings { margin-bottom: 16px; }
+        .setting-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .setting-row label { font-size: 0.8rem; color: var(--text-dim); }
+        .setting-row input, .setting-row select {
+            width: 120px; padding: 8px 10px; background: var(--bg);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
+            color: var(--text); font-size: 0.8rem; outline: none;
+        }
+        .setting-row input:focus, .setting-row select:focus { border-color: var(--primary); }
+        .trade-status-panel { padding: 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); }
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .main-content { margin-left: 0; }
             .dashboard-grid { grid-template-columns: 1fr; }
             .chat-panel { width: 300px; height: 400px; right: 12px; }
+            .trade-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -195,6 +220,9 @@
                 <h1>Welcome back! <i class="fas fa-robot" style="color:var(--primary-light);"></i> Friday AI</h1>
                 <div class="top-bar-actions">
                     <span><span class="status-dot"></span> All systems active</span>
+                    <button class="btn-secondary" onclick="toggleTradePanel()" style="padding:8px 16px;font-size:0.8rem;">
+                        <i class="fas fa-chart-line"></i> Trade
+                    </button>
                 </div>
             </div>
 
@@ -224,7 +252,7 @@
             <div class="dashboard-grid">
                 <div class="dash-card">
                     <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
-                    <div class="quick-action" onclick="window.location.href='#'">
+<div class="quick-action" onclick="window.location.href='#'">
                         <i class="blue fas fa-comments"></i>
                         <div class="qa-text"><strong>Start Chat</strong><span>Ask Friday anything about development</span></div>
                     </div>
@@ -232,9 +260,9 @@
                         <i class="green fas fa-microphone"></i>
                         <div class="qa-text"><strong>Voice Command</strong><span>Hands-free development control</span></div>
                     </div>
-                    <div class="quick-action" onclick="window.location.href='#'">
+                    <div class="quick-action" onclick="toggleTradePanel()">
                         <i class="orange fas fa-chart-line"></i>
-                        <div class="qa-text"><strong>Open Trading</strong><span>View Exness trades and status</span></div>
+                        <div class="qa-text"><strong>Trading Control</strong><span>Buy/Sell, set lot size, TP/SL</span></div>
                     </div>
                     <div class="quick-action" onclick="window.location.href='#'">
                         <i class="red fas fa-tools"></i>
@@ -250,7 +278,48 @@
                     </div>
                 </div>
 
-                <div class="dash-card">
+                <div class="dash-card" id="tradePanel" style="display:none; margin-bottom: 24px;">
+                    <h3><i class="fas fa-chart-line"></i> Trading Control</h3>
+                    <div class="trade-controls">
+                        <div class="trade-buttons">
+                            <button class="trade-btn buy" onclick="executeTrade('buy')">
+                                <i class="fas fa-arrow-up"></i> BUY
+                            </button>
+                            <button class="trade-btn sell" onclick="executeTrade('sell')">
+                                <i class="fas fa-arrow-down"></i> SELL
+                            </button>
+                            <button class="trade-btn close" onclick="closeAllTrades()">
+                                <i class="fas fa-times"></i> CLOSE ALL
+                            </button>
+                        </div>
+                        <div class="trade-settings">
+                            <div class="setting-row">
+                                <label>Lot Size</label>
+                                <select id="lotSize">
+                                    <option value="0.01">0.01 (micro)</option>
+                                    <option value="0.05">0.05</option>
+                                    <option value="0.10">0.10 (mini)</option>
+                                    <option value="0.50">0.50</option>
+                                    <option value="1.00">1.00 (standard)</option>
+                                </select>
+                            </div>
+                            <div class="setting-row">
+                                <label>Stop Loss (pips)</label>
+                                <input type="number" id="slPips" value="10" min="1" max="100">
+                            </div>
+                            <div class="setting-row">
+                                <label>Take Profit (pips)</label>
+                                <input type="number" id="tpPips" value="20" min="1" max="500">
+                            </div>
+                            <div class="setting-row">
+                                <label>Risk (USD)</label>
+                                <input type="number" id="riskUsd" value="1.00" min="0.01" max="100" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card" style="margin-bottom: 24px;">
                     <h3><i class="fas fa-clock"></i> Recent Activity</h3>
                     <div class="activity-item">
                         <div class="activity-dot green"></div>
@@ -293,6 +362,8 @@
         </main>
     </div>
 
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="chat-widget">
         <div class="chat-panel" id="chatPanel">
             <div class="chat-header">
@@ -311,28 +382,71 @@
     </div>
 
     <script>
-        function toggleChat() {
-            document.getElementById('chatPanel').classList.toggle('open');
+        var FRIDAY_API = 'http://localhost:8000';
+
+        function toggleTradePanel() {
+            var panel = document.getElementById('tradePanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
         }
-        function sendChat() {
-            var input = document.getElementById('chatInput');
-            var msg = input.value.trim();
-            if (!msg) return;
-            var messages = document.getElementById('chatMessages');
-            var userMsg = document.createElement('div');
-            userMsg.className = 'chat-msg user';
-            userMsg.textContent = msg;
-            messages.appendChild(userMsg);
-            input.value = '';
-            setTimeout(function() {
-                var aiMsg = document.createElement('div');
-                aiMsg.className = 'chat-msg ai';
-                aiMsg.textContent = 'Thanks for your message! Friday AI is processing your request...';
-                messages.appendChild(aiMsg);
-                messages.scrollTop = messages.scrollHeight;
-            }, 1000);
-            messages.scrollTop = messages.scrollHeight;
+
+        function executeTrade(side) {
+            var lot = document.getElementById('lotSize').value;
+            var sl = document.getElementById('slPips').value;
+            var tp = document.getElementById('tpPips').value;
+            var risk = document.getElementById('riskUsd').value;
+
+            fetch(FRIDAY_API + '/trading/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    side: side,
+                    lot: parseFloat(lot),
+                    sl_pips: parseInt(sl),
+                    tp_pips: parseInt(tp),
+                    risk_usd: parseFloat(risk)
+                })
+            }).then(function(resp) { return resp.json(); })
+            .then(function(data) {
+                showToast(data.message || 'Trade executed: ' + side + ' ' + lot + ' lots');
+                updateBalance();
+            }).catch(function(err) {
+                showToast('Error: Could not connect to Friday server');
+            });
         }
+
+        function closeAllTrades() {
+            fetch(FRIDAY_API + '/trading/close-all', { method: 'POST' })
+            .then(function(resp) { return resp.json(); })
+            .then(function(data) {
+                showToast(data.message || 'All trades closed');
+                updateBalance();
+            }).catch(function() {
+                showToast('Error: Could not connect to Friday server');
+            });
+        }
+
+        function updateBalance() {
+            fetch(FRIDAY_API + '/trading/status')
+            .then(function(resp) { return resp.json(); })
+            .then(function(data) {
+                var balEl = document.getElementById('dashBalance');
+                if (balEl && data.balance) {
+                    balEl.textContent = data.balance + ' AED';
+                }
+            }).catch(function() {});
+        }
+
+        function showToast(msg) {
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + msg;
+            container.appendChild(toast);
+            setTimeout(function() { toast.remove(); }, 3000);
+        }
+
+        // Auto-update balance every 10 seconds
+        setInterval(updateBalance, 10000);
     </script>
 </body>
 </html>
